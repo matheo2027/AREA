@@ -1,6 +1,7 @@
 # Analyses Comparatives et Justification des Choix Techniques
 
 Dans le cadre du projet AREA, plusieurs solutions ont été analysées pour déterminer les technologies et architectures les plus adaptées à nos besoins. Ce document regroupe les analyses comparatives effectuées et justifie les choix réalisés pour chaque composant clé du projet.
+Afin de se décider, nous avons expérimenter plusieurs POC par stack. Vous pouvez les retrouver dans le dossier ```POC```.
 
 ---
 
@@ -31,17 +32,15 @@ Dans le cadre du projet AREA, plusieurs solutions ont été analysées pour dét
 
 **Analyse comparative :** [analyse-frontend-web.md](ComparativeAnalysisFront-endWeb.md)
 
-**Technologies considérées :** React.js, Next.js, Gatsby.js
+**Technologies considérées :** Vue.js, Nuxt.js, Angular
 
-**Choix final :** **Next.js**
+**Choix final :** **Nuxt.js**
 
 **Justification :**
-- **Productivité** : Next.js simplifie le développement grâce à son système de routing intégré, ainsi que sa gestion native du SSR et du SSG, éliminant le besoin de configuration supplémentaire.
-- **Performances** : En combinant SSR et SSG, Next.js garantit des chargements rapides et une meilleure optimisation SEO, essentiels pour une application web moderne.
-- **Écosystème** : Bâti sur React.js, Next.js bénéficie de l'ensemble des bibliothèques, outils et ressources de l'écosystème React.
-- **Unification frontend-backend** : En utilisant Next.js à la fois pour le frontend et le backend, le projet bénéficie d'une cohérence technique et organisationnelle, réduisant les frictions entre les différentes couches.
-
----
+- **Productivité** : Nuxt.js facilite le développement grâce à son système de routage intégré basé sur les fichiers, et sa gestion automatique du SSR et du SSG, permettant de se concentrer sur la logique métier sans configurations complexes.
+- **Performances** : L'intégration native du SSR et du SSG dans Nuxt.js garantit des chargements rapides et une optimisation SEO efficace, répondant ainsi aux exigences des applications web modernes.
+- **Écosystème** : Basé sur Vue.js, Nuxt.js profite de la simplicité et de la flexibilité de Vue, tout en offrant un écosystème riche de bibliothèques et d'outils pour un développement rapide.
+- **Unification frontend-backend** : Bien que Nuxt.js soit principalement axé sur le frontend, il permet une intégration fluide avec des solutions backend comme Nuxt.js Server ou des API externes, assurant une cohérence technique et organisationnelle dans le projet.
 
 ## Client Mobile
 
