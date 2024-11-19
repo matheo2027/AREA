@@ -42,7 +42,7 @@ Chaque module est conteneurisé via Docker pour une gestion simplifiée.
 ## Technologies utilisées
 
 - **Backend** : [Next.js](https://nextjs.org/)
-- **Frontend web** : [Next.js](https://nextjs.org/)
+- **Frontend web** : [Nuxt.js](https://nuxt.com/)
 - **Client mobile** : [React Native](https://reactnative.dev)
 - **Base de données** : [PostgreSQL](https://www.postgresql.org)
 - **API REST** : Respect des standards RESTful
