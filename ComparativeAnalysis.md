@@ -35,15 +35,17 @@ Afin de se décider, nous avons expérimenter plusieurs POC par stack. Vous pouv
 
 **Analyse comparative :** [analyse-frontend-web.md](ComparativeAnalysisFront-endWeb.md)
 
-**Technologies considérées :** Vue.js, Nuxt.js, Angular
+**Technologies considérées :** Vue.js, Nuxt.js, Next.js
 
-**Choix final :** **Nuxt.js**
+**Choix final :** **Next.js**
 
 **Justification :**
-- **Productivité** : Nuxt.js facilite le développement grâce à son système de routage intégré basé sur les fichiers, et sa gestion automatique du SSR et du SSG, permettant de se concentrer sur la logique métier sans configurations complexes.
-- **Performances** : L'intégration native du SSR et du SSG dans Nuxt.js garantit des chargements rapides et une optimisation SEO efficace, répondant ainsi aux exigences des applications web modernes.
-- **Écosystème** : Basé sur Vue.js, Nuxt.js profite de la simplicité et de la flexibilité de Vue, tout en offrant un écosystème riche de bibliothèques et d'outils pour un développement rapide.
-- **Unification frontend-backend** : Bien que Nuxt.js soit principalement axé sur le frontend, il permet une intégration fluide avec des solutions backend comme Nuxt.js Server ou des API externes, assurant une cohérence technique et organisationnelle dans le projet.
+- **Productivité** : Next.js facilite le développement grâce à son système de routage dynamique basé sur les fichiers, et sa gestion automatique du SSR (Server-Side Rendering) et du SSG (Static Site Generation), ce qui permet de se concentrer sur la logique métier tout en bénéficiant d'une configuration minimale.
+- **Performances** : L'intégration native du SSR et du SSG dans Next.js permet d'obtenir des chargements rapides, une optimisation SEO efficace et une excellente performance des pages, ce qui est essentiel pour des applications web modernes et réactives.
+- **Écosystème** : Basé sur React, Next.js profite de la popularité et de la flexibilité de React, tout en offrant un écosystème riche de bibliothèques et d'outils. Il bénéficie également de la grande communauté de React, facilitant ainsi le développement rapide et l'intégration avec d'autres technologies.
+- **Adaptabilité** : Next.js permet une intégration fluide avec des solutions serverless, Docker et d'autres outils modernes, ce qui le rend particulièrement adapté aux architectures cloud et aux environnements de déploiement flexibles.
+
+---
 
 ## Client Mobile
 
