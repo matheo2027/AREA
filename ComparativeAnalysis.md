@@ -16,17 +16,20 @@ Afin de se décider, nous avons expérimenter plusieurs POC par stack. Vous pouv
 
 ## Backend
 
-**Analyse comparative :** [analyse-backend.md](ComparativeAnalysisBack-end.md.md)
+**Analyse comparative :** [analyse-backend.md](ComparativeAnalysisBack-end.md)
 
 **Technologies considérées :** Node.js, Next.js, Express.js
 
-**Choix final :** **Next.js**
+**Choix final :** **Express.js**
 
 **Justification :**
-- **Full-stack intégré** : Next.js permet de gérer à la fois le backend et le frontend grâce à son support natif des API routes, simplifiant ainsi l'architecture globale du projet.
-- **Performance** : Next.js combine le moteur V8 de Node.js avec un rendu serveur performant (SSR) et un rendu statique (SSG), garantissant des réponses rapides et optimisées.
-- **Écosystème** : En s'appuyant sur l'écosystème React et Node.js, Next.js offre une large communauté, de nombreuses librairies, et une compatibilité avec les outils modernes.
-- **Scalabilité** : Adapté aux architectures modernes, Next.js s'intègre parfaitement avec des solutions comme le déploiement serverless ou via Vercel et Docker.
+- **Flexibilité et légèreté** : Express.js offre un framework minimaliste qui permet de choisir précisément les composants nécessaires, offrant une grande liberté dans la conception du backend. Cette flexibilité est idéale pour des projets complexes où des personnalisations fines sont nécessaires.
+- **Performance** : Grâce à sa simplicité et son faible overhead, Express.js garantit des performances optimales, en particulier dans des environnements à forte charge et à haute concurrence. Il permet de gérer efficacement les requêtes et d'adapter la gestion des ressources selon les besoins.
+- **Modularité** : Express.js dispose d'une architecture modulaire qui permet d'ajouter facilement des middlewares et des routes, ce qui est crucial pour développer des applications évolutives. Chaque fonctionnalité peut être implémentée indépendamment et intégrée au projet selon les besoins.
+- **Communauté et écosystème** : Faisant partie de l'écosystème Node.js, Express.js bénéficie d'une large communauté et d'un écosystème mature d'outils et de bibliothèques, ce qui facilite le développement rapide et l'intégration avec d'autres services.
+- **Scalabilité** : Express.js est conçu pour être facilement extensible et peut être déployé dans des environnements modernes, y compris avec Docker et sur des serveurs cloud, ce qui le rend parfaitement adapté aux architectures scalables.
+
+---
 
 ## Frontend Web
 
