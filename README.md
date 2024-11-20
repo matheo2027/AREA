@@ -33,16 +33,16 @@ Par exemple :
 ## Architecture
 
 AREA est divisé en trois modules principaux :
-1. **Serveur d'application** : Héberge la logique métier et expose une API REST.
-2. **Client web** : Interface utilisateur accessible depuis un navigateur.
-3. **Client mobile** : Application native pour Android ou Windows Mobile.
+1. **Serveur d'application** : Héberge la logique métier et expose une API REST via **Express.js**.
+2. **Client web** : Interface utilisateur accessible depuis un navigateur, développé avec **Next.js**.
+3. **Client mobile** : Application native pour Android ou Windows Mobile, développée avec **React Native**.
 
 Chaque module est conteneurisé via Docker pour une gestion simplifiée.
 
 ## Technologies utilisées
 
-- **Backend** : [Next.js](https://nextjs.org/)
-- **Frontend web** : [Nuxt.js](https://nuxt.com/)
+- **Backend** : [Express.js](https://expressjs.com/)
+- **Frontend web** : [Next.js](https://nextjs.org/)
 - **Client mobile** : [React Native](https://reactnative.dev)
 - **Base de données** : [PostgreSQL](https://www.postgresql.org)
 - **API REST** : Respect des standards RESTful
