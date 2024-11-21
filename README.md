@@ -29,6 +29,7 @@ Par exemple :
   - Réactions : Tâches exécutées suite à une action (ex. envoyer un email, publier un message).
 - **Configuration des AREA** : Liaison entre une action et une réaction pour automatiser un processus.
 - **Déclencheurs** : Système de vérification pour activer les AREA dès que les conditions sont remplies.
+- Vous pouvez trouver la liste des Services, des Actions et des Réactions que nous allons faire [ici](./ServicesActionsReactions.md).
 
 ## Architecture
 
