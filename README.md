@@ -39,6 +39,7 @@ AREA est divisé en trois modules principaux :
 3. **Client mobile** : Application native pour Android ou Windows Mobile, développée avec **React Native**.
 
 Chaque module est conteneurisé via Docker pour une gestion simplifiée.
+Pour plus de détails, regardez [ce fichier](./Architecture.md)
 
 ## Technologies utilisées
 
