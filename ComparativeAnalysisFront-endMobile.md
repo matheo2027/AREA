@@ -1,7 +1,7 @@
 # Analyse Comparative : React Native pour le Front-End Mobile
 
 ## Introduction
-React Native est un framework développé par Facebook qui permet de créer des applications mobiles pour iOS et Android en utilisant JavaScript et React. Cette analyse explore ses avantages, ses inconvénients et ses cas d'utilisation.
+React Native est un framework développé par Meta qui permet de créer des applications mobiles pour iOS et Android en utilisant JavaScript et React. Cette analyse explore ses avantages, ses inconvénients et ses cas d'utilisation.
 
 ---
 
