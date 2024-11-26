@@ -1,0 +1,24 @@
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware de base
+app.use(express.json());
+
+// Route par défaut
+app.get('/', (req, res) => {
+    res.send('Serveur Express est opérationnel !');
+});
+
+// Démarrer le serveur
+app.listen(PORT, () => {
+    console.log(`Serveur démarré sur http://localhost:${PORT}`);
+});
+
+// Route exemple
+const exampleRoute = require('./routes/example');
+app.use('/api', exampleRoute);
+
+// Middleware logger
+const logger = require('./middlewares/logger');
+app.use(logger);
