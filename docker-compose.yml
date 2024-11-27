@@ -1,9 +1,4 @@
 services:
-  server:
-    build:
-      context: ./Back-End
-    ports:
-      - "8080:8080"
 
   client_web:
     build:
@@ -12,6 +7,12 @@ services:
       - "8081:8081"
     depends_on:
       - server
+
+  server:
+    build:
+      context: ./Back-End
+    ports:
+      - "8080:8080"
 
   # client_mobile:
   #   build:
