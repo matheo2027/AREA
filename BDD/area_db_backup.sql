@@ -210,6 +210,45 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: workflows; Type: TABLE; Schema: public; Owner: area_user
+--
+
+CREATE TABLE public.workflows (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    action_id integer NOT NULL,
+    reaction_id integer NOT NULL,
+    parameters jsonb,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.workflows OWNER TO area_user;
+
+--
+-- Name: workflows_id_seq; Type: SEQUENCE; Schema: public; Owner: area_user
+--
+
+CREATE SEQUENCE public.workflows_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.workflows_id_seq OWNER TO area_user;
+
+--
+-- Name: workflows_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: area_user
+--
+
+ALTER SEQUENCE public.workflows_id_seq OWNED BY public.workflows.id;
+
+
+--
 -- Name: actions id; Type: DEFAULT; Schema: public; Owner: area_user
 --
 
@@ -242,6 +281,13 @@ ALTER TABLE ONLY public.user_services ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: workflows id; Type: DEFAULT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.workflows ALTER COLUMN id SET DEFAULT nextval('public.workflows_id_seq'::regclass);
 
 
 --
@@ -285,6 +331,14 @@ COPY public.users (id, username, email, password_hash, created_at, updated_at) F
 
 
 --
+-- Data for Name: workflows; Type: TABLE DATA; Schema: public; Owner: area_user
+--
+
+COPY public.workflows (id, user_id, action_id, reaction_id, parameters, created_at, updated_at) FROM stdin;
+\.
+
+
+--
 -- Name: actions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: area_user
 --
 
@@ -317,6 +371,13 @@ SELECT pg_catalog.setval('public.user_services_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+
+
+--
+-- Name: workflows_id_seq; Type: SEQUENCE SET; Schema: public; Owner: area_user
+--
+
+SELECT pg_catalog.setval('public.workflows_id_seq', 1, false);
 
 
 --
@@ -368,6 +429,30 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: workflows workflows_pkey; Type: CONSTRAINT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.workflows
+    ADD CONSTRAINT workflows_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: workflows fk_action_id; Type: FK CONSTRAINT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.workflows
+    ADD CONSTRAINT fk_action_id FOREIGN KEY (action_id) REFERENCES public.actions(id) ON DELETE CASCADE;
+
+
+--
+-- Name: workflows fk_reaction_id; Type: FK CONSTRAINT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.workflows
+    ADD CONSTRAINT fk_reaction_id FOREIGN KEY (reaction_id) REFERENCES public.reactions(id) ON DELETE CASCADE;
+
+
+--
 -- Name: actions fk_service_id; Type: FK CONSTRAINT; Schema: public; Owner: area_user
 --
 
@@ -396,6 +481,14 @@ ALTER TABLE ONLY public.user_services
 --
 
 ALTER TABLE ONLY public.user_services
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: workflows fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.workflows
     ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
