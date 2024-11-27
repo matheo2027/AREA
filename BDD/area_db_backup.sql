@@ -134,6 +134,44 @@ ALTER SEQUENCE public.services_id_seq OWNED BY public.services.id;
 
 
 --
+-- Name: user_services; Type: TABLE; Schema: public; Owner: area_user
+--
+
+CREATE TABLE public.user_services (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    service_id integer NOT NULL,
+    access_token text,
+    refresh_token text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE public.user_services OWNER TO area_user;
+
+--
+-- Name: user_services_id_seq; Type: SEQUENCE; Schema: public; Owner: area_user
+--
+
+CREATE SEQUENCE public.user_services_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_services_id_seq OWNER TO area_user;
+
+--
+-- Name: user_services_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: area_user
+--
+
+ALTER SEQUENCE public.user_services_id_seq OWNED BY public.user_services.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: area_user
 --
 
@@ -193,6 +231,13 @@ ALTER TABLE ONLY public.services ALTER COLUMN id SET DEFAULT nextval('public.ser
 
 
 --
+-- Name: user_services id; Type: DEFAULT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.user_services ALTER COLUMN id SET DEFAULT nextval('public.user_services_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: area_user
 --
 
@@ -224,6 +269,14 @@ COPY public.services (id, name, description, created_at, updated_at) FROM stdin;
 
 
 --
+-- Data for Name: user_services; Type: TABLE DATA; Schema: public; Owner: area_user
+--
+
+COPY public.user_services (id, user_id, service_id, access_token, refresh_token, created_at) FROM stdin;
+\.
+
+
+--
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: area_user
 --
 
@@ -250,6 +303,13 @@ SELECT pg_catalog.setval('public.reactions_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.services_id_seq', 1, false);
+
+
+--
+-- Name: user_services_id_seq; Type: SEQUENCE SET; Schema: public; Owner: area_user
+--
+
+SELECT pg_catalog.setval('public.user_services_id_seq', 1, false);
 
 
 --
@@ -284,6 +344,14 @@ ALTER TABLE ONLY public.services
 
 
 --
+-- Name: user_services user_services_pkey; Type: CONSTRAINT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.user_services
+    ADD CONSTRAINT user_services_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: area_user
 --
 
@@ -313,6 +381,22 @@ ALTER TABLE ONLY public.actions
 
 ALTER TABLE ONLY public.reactions
     ADD CONSTRAINT fk_service_id FOREIGN KEY (service_id) REFERENCES public.services(id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_services fk_service_id; Type: FK CONSTRAINT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.user_services
+    ADD CONSTRAINT fk_service_id FOREIGN KEY (service_id) REFERENCES public.services(id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_services fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.user_services
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --
