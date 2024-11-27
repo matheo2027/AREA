@@ -1,5 +1,5 @@
 # Utiliser l'image officielle Node.js
-FROM node:16
+FROM node:18
 
 # Définir le dossier de travail
 WORKDIR /app
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8080
 
 # Commande pour démarrer le serveur
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
