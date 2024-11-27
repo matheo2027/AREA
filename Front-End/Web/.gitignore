@@ -1,0 +1,43 @@
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+.next/
+out/
+
+# Testing
+coverage/
+*.lcov
+
+# Environment variables
+.env
+.env.*.local
+
+# Editor and OS-specific files
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Dependency directory for Yarn
+.pnp/
+.pnp.js
+
+# TypeScript cache and build artifacts
+*.tsbuildinfo
+
+# Tailwind CSS generated files
+.tailwindcss/
+
+# Ignore lock files (optional, depends on team preference)
+# Uncomment the line below if you want to avoid committing lock files
+# package-lock.json
+# yarn.lock
