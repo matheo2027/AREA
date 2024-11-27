@@ -10,6 +10,15 @@ app.get('/', (req, res) => {
     res.send('Serveur Express est opérationnel !');
 });
 
+// Route about.json
+app.get('/about.json', (req, res) => {
+    res.json({
+      timestamp: Date.now(),
+      services: ['server', 'client_web', 'database'],
+    });
+  });
+
+
 // Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
