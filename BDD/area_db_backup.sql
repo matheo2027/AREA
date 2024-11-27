@@ -59,6 +59,43 @@ ALTER SEQUENCE public.actions_id_seq OWNED BY public.actions.id;
 
 
 --
+-- Name: logs; Type: TABLE; Schema: public; Owner: area_user
+--
+
+CREATE TABLE public.logs (
+    id integer NOT NULL,
+    workflow_id integer NOT NULL,
+    status character varying(50) NOT NULL,
+    message text,
+    executed_at timestamp without time zone
+);
+
+
+ALTER TABLE public.logs OWNER TO area_user;
+
+--
+-- Name: logs_id_seq; Type: SEQUENCE; Schema: public; Owner: area_user
+--
+
+CREATE SEQUENCE public.logs_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.logs_id_seq OWNER TO area_user;
+
+--
+-- Name: logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: area_user
+--
+
+ALTER SEQUENCE public.logs_id_seq OWNED BY public.logs.id;
+
+
+--
 -- Name: reactions; Type: TABLE; Schema: public; Owner: area_user
 --
 
@@ -256,6 +293,13 @@ ALTER TABLE ONLY public.actions ALTER COLUMN id SET DEFAULT nextval('public.acti
 
 
 --
+-- Name: logs id; Type: DEFAULT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.logs ALTER COLUMN id SET DEFAULT nextval('public.logs_id_seq'::regclass);
+
+
+--
 -- Name: reactions id; Type: DEFAULT; Schema: public; Owner: area_user
 --
 
@@ -295,6 +339,14 @@ ALTER TABLE ONLY public.workflows ALTER COLUMN id SET DEFAULT nextval('public.wo
 --
 
 COPY public.actions (id, service_id, name, description, parameters, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: logs; Type: TABLE DATA; Schema: public; Owner: area_user
+--
+
+COPY public.logs (id, workflow_id, status, message, executed_at) FROM stdin;
 \.
 
 
@@ -346,6 +398,13 @@ SELECT pg_catalog.setval('public.actions_id_seq', 1, false);
 
 
 --
+-- Name: logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: area_user
+--
+
+SELECT pg_catalog.setval('public.logs_id_seq', 1, false);
+
+
+--
 -- Name: reactions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: area_user
 --
 
@@ -386,6 +445,14 @@ SELECT pg_catalog.setval('public.workflows_id_seq', 1, false);
 
 ALTER TABLE ONLY public.actions
     ADD CONSTRAINT actions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: logs logs_pkey; Type: CONSTRAINT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.logs
+    ADD CONSTRAINT logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -490,6 +557,14 @@ ALTER TABLE ONLY public.user_services
 
 ALTER TABLE ONLY public.workflows
     ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: logs fk_workflow_id; Type: FK CONSTRAINT; Schema: public; Owner: area_user
+--
+
+ALTER TABLE ONLY public.logs
+    ADD CONSTRAINT fk_workflow_id FOREIGN KEY (workflow_id) REFERENCES public.workflows(id) ON DELETE CASCADE;
 
 
 --
