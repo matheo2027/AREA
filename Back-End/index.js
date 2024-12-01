@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const PORT = 8080;
+const dotenv = require('dotenv');
+
+// Charger les variables depuis le fichier .env
+dotenv.config();
 
 // Middleware de base
 app.use(express.json());
@@ -10,15 +14,6 @@ app.get('/', (req, res) => {
     res.send('Serveur Express est opérationnel !');
 });
 
-// Route about.json
-app.get('/about.json', (req, res) => {
-    res.json({
-      timestamp: Date.now(),
-      services: ['server', 'client_web', 'database'],
-    });
-  });
-
-
 // Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
@@ -27,6 +22,14 @@ app.listen(PORT, () => {
 // Route exemple
 const exampleRoute = require('./routes/example');
 app.use('/api', exampleRoute);
+
+// Route about.js
+const aboutjsonRoute = require('./routes/about.json');
+app.use(aboutjsonRoute);
+
+// Route config
+const configRoute = require('./routes/config');
+app.use(configRoute);
 
 // Middleware logger
 const logger = require('./middlewares/logger');
