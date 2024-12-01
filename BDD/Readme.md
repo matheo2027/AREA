@@ -1,0 +1,1 @@
+pour dump la bdd en local ```psql -U area_user -d area_db < area_db_backup.sql```
