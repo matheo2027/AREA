@@ -1,0 +1,5 @@
+FRONT WEB : http://localhost:8081/
+
+BACK-END : http://localhost:8080/
+
+PG ADMIN : http://localhost:5050/browser/
