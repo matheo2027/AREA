@@ -3,12 +3,17 @@ const app = express();
 const PORT = 8080;
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
+const { NotFoundError} = require('./errors');
+const errorHandler = require('./middlewares/errorHandler');
 
 // Charger les variables depuis le fichier .env
 dotenv.config();
 
 // Middleware de base
 app.use(express.json());
+
+// Middleware errorHandler
+app.use(errorHandler);
 
 // Route par défaut
 app.get('/', (req, res) => {
@@ -65,6 +70,12 @@ app.post('/users', async (req, res) => {
     console.error('Error adding user:', err);
     res.status(500).json({ error: 'Failed to add user' });
   }
+});
+
+// Exemple erreur 404
+app.get('/resource', (req, res, next) => {
+  const error = new NotFoundError('Resource not found');
+  return next(error);
 });
 
 // Middleware logger
