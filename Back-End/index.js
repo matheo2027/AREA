@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 const { Pool } = require('pg');
 const { NotFoundError} = require('./errors');
 const errorHandler = require('./middlewares/errorHandler');
-const authMiddleware = require('./middlewares/authMiddleware');
 
 // Charger les variables depuis le fichier .env
 dotenv.config();
@@ -19,20 +18,6 @@ app.use(errorHandler);
 // Route par défaut
 app.get('/', (req, res) => {
     res.send('Serveur Express est opérationnel !');
-});
-
-// Route auth
-const authRoute = require('./routes/auth');
-app.use('/auth', authRoute);
-
-// Endpoint pour récupérer une liste d'utilisateurs (protégé par authMiddleware)
-app.get('/users', authMiddleware, async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM users');
-    res.json(result.rows);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch users' });
-  }
 });
 
 // Route exemple
