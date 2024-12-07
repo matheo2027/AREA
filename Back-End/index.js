@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
 const exampleRoute = require('./routes/example');
 app.use('/api', exampleRoute);
 
+// Route weather
+const weatherRoute = require('./routes/weather');
+app.use('/api', weatherRoute);
+
 // Route about.js
 const aboutjsonRoute = require('./routes/about.json');
 app.use(aboutjsonRoute);
