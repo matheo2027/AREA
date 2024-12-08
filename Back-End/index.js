@@ -3,10 +3,9 @@ const app = express();
 const PORT = 8080;
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
-const { NotFoundError} = require('./errors');
 const errorHandler = require('./middlewares/errorHandler');
 
-// Charger les variables depuis le fichier .env
+// Configuration dotenv
 dotenv.config();
 
 // Middleware de base
@@ -36,7 +35,7 @@ app.use(aboutjsonRoute);
 const configRoute = require('./routes/config');
 app.use(configRoute);
 
-// Configuration de la connexion PostgreSQL
+// Configuration connection PostgreSQL
 const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -45,12 +44,12 @@ const pool = new Pool({
   database: process.env.DB_NAME,
 });
 
-// Tester la connexion à la base
+// check connection BDD
 pool.connect()
   .then(() => console.log('Connected to PostgreSQL'))
   .catch((err) => console.error('Connection error', err));
 
-// Exemple : Endpoint pour récupérer une liste d'utilisateurs
+// Example : Endpoint for get the users from the database
 app.get('/users', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM users');
@@ -61,32 +60,11 @@ app.get('/users', async (req, res) => {
   }
 });
 
-// Exemple : Endpoint pour ajouter un utilisateur
-app.post('/users', async (req, res) => {
-  const { username, email } = req.body;
-  try {
-    const result = await pool.query(
-      'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *',
-      [username, email]
-    );
-    res.status(201).json(result.rows[0]);
-  } catch (err) {
-    console.error('Error adding user:', err);
-    res.status(500).json({ error: 'Failed to add user' });
-  }
-});
-
-// Exemple erreur 404
-app.get('/resource', (req, res, next) => {
-  const error = new NotFoundError('Resource not found');
-  return next(error);
-});
-
 // Middleware logger
 const logger = require('./middlewares/logger');
 app.use(logger);
 
-// Démarrer le serveur
+// Start the server
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });

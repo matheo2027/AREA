@@ -1,55 +1,34 @@
 const express = require('express');
 const axios = require('axios');
-const app = express();
-const PORT = 8080;
-const dotenv = require('dotenv');
-const { Pool } = require('pg');
-const { ValidationError, NotFoundError, InternalServerError } = require('./errors');
-const errorHandler = require('./middlewares/errorHandler');
+const router = express.Router();
+require('dotenv').config();
 
-// Data Schema for Current Weather Data
-// {
-//   "coord": { "lon": Number, "lat": Number },
-//   "weather": [{ "id": Number, "main": String, "description": String, "icon": String }],
-//   "base": String,
-//   "main": { "temp": Number, "feels_like": Number, "temp_min": Number, "temp_max": Number, "pressure": Number, "humidity": Number },
-//   "visibility": Number,
-//   "wind": { "speed": Number, "deg": Number },
-//   "clouds": { "all": Number },
-//   "dt": Number,
-//   "sys": { "type": Number, "id": Number, "country": String, "sunrise": Number, "sunset": Number },
-//   "timezone": Number,
-//   "id": Number,
-//   "name": String,
-//   "cod": Number
-// }
+// Endpoint pour récupérer la météo d'une ville
+router.get('/weather', async (req, res) => {
+  const { city } = req.query;
 
-// Charger les variables depuis le fichier .env
-dotenv.config();
+  if (!city) {
+    return res.status(400).json({ error: 'Veuillez fournir une ville dans les paramètres de la requête.' });
+  }
 
-// Middleware de base
-app.use(express.json());
+  const apiKey = process.env.OPENWEATHER_API_KEY;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
 
-// Middleware errorHandler
-app.use(errorHandler);
+  try {
+    const response = await axios.get(apiUrl);
+    const weatherData = response.data;
 
-app.get('/weather', async (req, res) => {
-    const city = req.query.city;
-    if (!city) {
-        return next(new ValidationError('La ville est requise'));
-    }
-    try {
-        const apiKey = process.env.OPENWEATHER_API_KEY;
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`);
-        if (response.data.cod === '404') {
-            return next(new NotFoundError('Ville non trouvée'));
-        }
-        res.json(response.data);
-    } catch (error) {
-        next(new InternalServerError('Erreur lors de la récupération des données météo'));
-    }
+    res.json({
+      city: weatherData.name,
+      temperature: weatherData.main.temp,
+      description: weatherData.weather[0].description,
+      humidity: weatherData.main.humidity,
+      windSpeed: weatherData.wind.speed,
+    });
+  } catch (err) {
+    console.error('Erreur lors de l\'appel à OpenWeatherMap :', err.message);
+    res.status(500).json({ error: 'Impossible de récupérer les données météo. Veuillez réessayer plus tard.' });
+  }
 });
 
-app.listen(PORT, () => {
-    console.log(`Serveur Express à l'écoute sur le port ${PORT}`);
-});
+module.exports = router;
