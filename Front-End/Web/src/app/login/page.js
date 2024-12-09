@@ -1,39 +1,36 @@
-'use client';  // Mark this component as client-side
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";  // Use the correct useRouter from next/navigation
-import styles from "./login.module.css";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation'; // Router pour rediriger après la connexion
+import styles from './login.module.css';
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const router = useRouter();  // Initialize the router from next/navigation
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
-      if (data.success) {
-        setMessage("Login successful!");
-        // Redirect to /dashboard after successful login
-        router.push("/dashboard");
+      if (response.ok) {
+        setMessage('Login successful!');
+        router.push('/dashboard'); // Redirige vers le tableau de bord après la connexion
       } else {
-        setMessage(data.message || "An error occurred.");
+        setMessage(data.message || 'An error occurred.');
       }
     } catch (error) {
-      setMessage("Error during login. Please try again later.");
-      console.error("Error:", error);
+      setMessage('Error during login. Please try again later.');
+      console.error('Error:', error);
     }
   };
 
@@ -58,9 +55,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className={styles.button}>
-            Log In
-          </button>
+          <button type="submit" className={styles.button}>Log In</button>
         </form>
         {message && <p className={styles.message}>{message}</p>}
       </div>
