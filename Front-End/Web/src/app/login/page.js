@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Router pour rediriger après la connexion
+import { useRouter } from 'next/navigation';
 import styles from './login.module.css';
 
 export default function Login() {
@@ -14,7 +14,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/api/auth/login', {
+      const response = await fetch('http://localhost:8080/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -24,7 +24,7 @@ export default function Login() {
 
       if (response.ok) {
         setMessage('Login successful!');
-        router.push('/dashboard'); // Redirige vers le tableau de bord après la connexion
+        router.push('/dashboard');
       } else {
         setMessage(data.message || 'An error occurred.');
       }

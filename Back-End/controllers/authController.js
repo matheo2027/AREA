@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const pool = require('../models/database');
 
-// Inscription
+// Register
 exports.register = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -20,7 +20,7 @@ exports.register = async (req, res, next) => {
   }
 };
 
-// Connexion
+// Login
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
