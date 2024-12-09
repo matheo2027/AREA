@@ -1,46 +1,42 @@
-'use client';  // Add this line at the top to mark the component as client-side
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";  // Use the correct useRouter from next/navigation
-import styles from "./register.module.css";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation'; // Router pour rediriger après l'inscription
+import styles from './register.module.css';
 
 export default function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const router = useRouter();  // Initialize the router from next/navigation
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if passwords match
     if (password !== confirmPassword) {
-      setMessage("Passwords do not match.");
+      setMessage('Passwords do not match.');
       return;
     }
 
     try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await fetch('http://localhost:8080/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
-      if (data.success) {
-        setMessage("Account created successfully!");
-        // Redirect to /dashboard after successful registration
-        router.push("/dashboard");
+      if (response.ok) {
+        setMessage('Account created successfully!');
+        router.push('/dashboard');
       } else {
-        setMessage(data.message || "An error occurred.");
+        setMessage(data.message || 'An error occurred.');
       }
     } catch (error) {
-      setMessage("Error during registration. Please try again later.");
-      console.error("Error:", error);
+      setMessage('Error during registration. Please try again later.');
+      console.error('Error:', error);
     }
   };
 
@@ -73,9 +69,7 @@ export default function Register() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <button type="submit" className={styles.button}>
-            Sign Up
-          </button>
+          <button type="submit" className={styles.button}>Sign Up</button>
         </form>
         {message && <p className={styles.message}>{message}</p>}
       </div>
