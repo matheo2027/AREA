@@ -1,3 +1,5 @@
+.env : racine et dans le Back-End
+
 FRONT WEB : http://localhost:8081/
 
 BACK-END : http://localhost:8080/
