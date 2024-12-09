@@ -4,6 +4,7 @@ const PORT = 8080;
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
 const errorHandler = require('./middlewares/errorHandler');
+const validateRequest = require('./middlewares/validateRequest'); // Middleware de validation
 
 // Configuration dotenv
 dotenv.config();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Middleware errorHandler
 app.use(errorHandler);
+app.use(validateRequest); // Middleware de validation
 
 // Route par défaut
 app.get('/', (req, res) => {

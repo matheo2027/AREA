@@ -3,16 +3,28 @@ const axios = require('axios');
 const router = express.Router();
 require('dotenv').config();
 
-// Endpoint pour récupérer la météo d'une ville
-router.get('/weather', async (req, res) => {
-  const { city } = req.query;
+let selectedCity = ''; // Stocke la ville choisie temporairement
+
+// Action : L'utilisateur choisit une ville
+router.post('/weather/city', (req, res) => {
+  const { city } = req.body;
 
   if (!city) {
-    return res.status(400).json({ error: 'Veuillez fournir une ville dans les paramètres de la requête.' });
+    return res.status(400).json({ error: 'Veuillez fournir une ville dans la requête.' });
+  }
+
+  selectedCity = city; // Stocke la ville choisie
+  res.json({ message: `Ville choisie : ${selectedCity}` });
+});
+
+// Réaction : Obtenir la météo pour la ville choisie
+router.get('/weather', async (req, res) => {
+  if (!selectedCity) {
+    return res.status(400).json({ error: 'Aucune ville choisie. Veuillez d\'abord choisir une ville.' });
   }
 
   const apiKey = process.env.OPENWEATHER_API_KEY;
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(selectedCity)}&appid=${apiKey}&units=metric`;
 
   try {
     const response = await axios.get(apiUrl);
