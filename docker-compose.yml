@@ -1,19 +1,88 @@
 services:
-
-  client_web:
-    build:
-      context: ./Front-End/Web
+  db:
+    image: postgres:latest
+    container_name: area_db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "8081:8081"
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - area_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_ENHANCED_CSFR: "False"
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     depends_on:
-      - server
+      - db
+    networks:
+      - area_network
+    restart: unless-stopped
 
   server:
     build:
       context: ./Back-End
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     ports:
       - "8080:8080"
+    volumes:
+      - ./Back-End:/usr/src/app
+    networks:
+      - area_network
+    depends_on:
+      - db
+
+  client_web:
+    build:
+      context: ./Front-End/Web
+    environment:
+      API_URL: http://server:8080
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./Front-End/Web:/usr/src/app
+    depends_on:
+      - server
+    networks:
+      - area_network
 
   # client_mobile:
   #   build:
   #     context: ./Front-End/Mobile
+  #   environment:
+  #     API_URL: http://server:8080
+  #   depends_on:
+  #     - server
+  #   networks:
+  #     - area_network
+
+networks:
+  area_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:
