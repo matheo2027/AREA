@@ -1,4 +1,4 @@
-'use client';
+'use client'; // Indique que ce composant est un Client Component
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -11,15 +11,18 @@ export default function Register() {
   const [message, setMessage] = useState('');
   const router = useRouter();
 
+  // Fonction pour gérer la soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Vérifier que les mots de passe correspondent
     if (password !== confirmPassword) {
       setMessage('Passwords do not match.');
       return;
     }
 
     try {
+      // Effectuer la requête pour l'inscription
       const response = await fetch('http://localhost:8080/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
