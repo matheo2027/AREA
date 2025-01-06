@@ -3,7 +3,7 @@ const axios = require('axios');
 const router = express.Router();
 require('dotenv').config();
 
-let selectedCity = ''; // Stocke la ville choisie temporairement
+let selectedCity = '';
 
 // Action : L'utilisateur choisit une ville
 router.post('/weather/city', (req, res) => {
