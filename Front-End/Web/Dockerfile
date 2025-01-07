@@ -13,7 +13,7 @@ RUN npm install
 # Copier tout le code
 COPY . .
 
-# Construire le projet Next.js (ou un autre framework)
+# Construire le projet Next.js
 RUN npm run build
 
 # Exposer le port du frontend
