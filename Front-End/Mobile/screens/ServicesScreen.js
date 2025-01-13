@@ -75,7 +75,7 @@ const ServiceCard = ({ service, onToggle }) => {
         </View>
       </View>
       <Switch
-        trackColor={{ false: '#ccc', true: '#007BFF' }}
+        trackColor={{ false: '#ccc', true: '#0054AD' }}
         thumbColor={isEnabled ? '#fff' : '#fff'}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}

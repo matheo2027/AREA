@@ -18,7 +18,7 @@ const DashboardScreen = () => {
     }, 1000);
   }, []);
 
-  
+
   const totalAreas = areaList.length;
   const notStarted = areaList.filter((area) => area.status === 'Not Started').length;
   const ongoing = areaList.filter((area) => area.status === 'Ongoing').length;
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   noAreasTitle: { fontSize: 22, fontWeight: 'bold', marginBottom: 10 },
-  noAreasLink: { color: '#007BFF', textDecorationLine: 'underline' },
+  noAreasLink: { color: '#0054AD', textDecorationLine: 'underline' },
   summaryContainer: {
     padding: 15,
     backgroundColor: '#fff',
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   areaLink: {
     marginTop: 5,
     fontSize: 14,
-    color: '#007BFF',
+    color: '#0054AD',
     textDecorationLine: 'underline',
   },
 });

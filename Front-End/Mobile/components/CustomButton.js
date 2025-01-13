@@ -15,10 +15,10 @@ const CustomButton = ({ title, onPress, isOutline = false }) => {
 };
 
 const styles = StyleSheet.create({
-  button: { backgroundColor: '#007BFF', padding: 15, borderRadius: 5, marginBottom: 10 },
+  button: { backgroundColor: '#0054AD', padding: 15, borderRadius: 5, marginBottom: 10 },
   buttonText: { color: '#fff', fontWeight: 'bold', textAlign: 'center' },
-  outlineButton: { backgroundColor: 'transparent', borderColor: '#007BFF', borderWidth: 1 },
-  outlineButtonText: { color: '#007BFF' },
+  outlineButton: { backgroundColor: 'transparent', borderColor: '#0054AD', borderWidth: 1 },
+  outlineButtonText: { color: '#0054AD' },
 });
 
 export default CustomButton;
