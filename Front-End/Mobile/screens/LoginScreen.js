@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 14, textAlign: 'center', color: '#666', marginBottom: 20 },
   input: { height: 50, borderColor: '#ccc', borderWidth: 1, marginBottom: 15, padding: 10, borderRadius: 5 },
   forgotPassword: { alignItems: 'flex-end', marginBottom: 20 },
-  linkText: { color: '#007BFF', textAlign: 'center', marginTop: 10 },
+  linkText: { color: '#0054AD', textAlign: 'center', marginTop: 10 },
 });
 
 export default LoginScreen;

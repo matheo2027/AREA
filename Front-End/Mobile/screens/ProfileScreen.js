@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     marginBottom: 10,
   },
-  changePhotoText: { color: '#007BFF', fontSize: 14, marginBottom: 20 },
+  changePhotoText: { color: '#0054AD', fontSize: 14, marginBottom: 20 },
   label: { alignSelf: 'flex-start', fontSize: 16, fontWeight: 'bold', marginTop: 20 },
   input: {
     width: '100%',
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   saveButton: {
     width: '100%',
     height: 50,
-    backgroundColor: '#007BFF',
+    backgroundColor: '#0054AD',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
