@@ -1,17 +1,31 @@
-# Utiliser l'image officielle de React Native (par exemple)
-FROM reactnativecommunity/react-native-android:latest
+# Utiliser une image Node.js officielle
+FROM node:20
 
-# Définir le dossier de travail
-WORKDIR /app
+# Installer les dépendances nécessaires pour Expo
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    dnf \
+    libgl1-mesa-glx \
+    libglu1-mesa \
+    && rm -rf /var/lib/apt/lists/*
+
+# Créer un répertoire de travail
+WORKDIR /usr/src/app
 
 # Copier les fichiers package.json et package-lock.json
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 # Installer les dépendances
 RUN npm install
 
-# Copier tout le code
+# Installer Expo CLI globalement
+RUN npm install -g expo-cli
+
+# Copier tout le reste du projet
 COPY . .
 
-# Commande pour construire l'application
-CMD ["npm", "run", "android"]
+# Exposer les ports nécessaires
+EXPOSE 19000 19001 19002
+
+# Commande pour démarrer Expo
+CMD ["npm", "start"]

@@ -23,6 +23,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "packagerOpts": {
+      "dev": true
+    },
+    "hostType": "lan",
+    "environment": {
+      "EXPO_HOST": "0.0.0.0",
+      "EXPO_PORT": 19000
     }
   }
 }

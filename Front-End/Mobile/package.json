@@ -3,12 +3,13 @@
   "license": "0BSD",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
-  },
+"scripts": {
+  "start": "node -e \"require('child_process').execSync('expo start --host $EXPO_HOST --port ' + Number(process.env.EXPO_PORT), { stdio: 'inherit' })\"",
+  "android": "expo start --android",
+  "ios": "expo start --ios",
+  "web": "expo start --web",
+  "docker:clean": "rm -rf node_modules && npm install"
+},
   "dependencies": {
     "@expo/metro-runtime": "^4.0.0",
     "@react-navigation/native": "^7.0.13",

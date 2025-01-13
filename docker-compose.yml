@@ -69,15 +69,20 @@ services:
     networks:
       - area_network
 
-  # client_mobile:
-  #   build:
-  #     context: ./Front-End/Mobile
-  #   environment:
-  #     API_URL: http://server:8080
-  #   depends_on:
-  #     - server
-  #   networks:
-  #     - area_network
+  client_mobile:
+    build:
+      context: ./Front-End/Mobile
+    environment:
+      EXPO_HOST: "lan"
+      EXPO_PORT: 19000
+    ports:
+      - "19000:19000"
+      - "19001:19001" # Expo DevTools
+      - "19002:19002" # Metro Bundler
+    volumes:
+      - ./Front-End/Mobile:/usr/src/app
+    networks:
+      - area_network
 
 networks:
   area_network:
