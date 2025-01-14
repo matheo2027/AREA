@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import CustomButton from '../components/CustomButton';  // Assurez-vous que ce bouton existe dans vos composants
+import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
@@ -12,7 +12,6 @@ const ProfileScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
-  // Récupérer les données du profil de l'utilisateur
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -64,7 +63,7 @@ const ProfileScreen = () => {
 
       if (response.ok) {
         setMessage('Profile updated successfully!');
-        navigation.goBack(); // Navigue en arrière après l'enregistrement
+        navigation.goBack();
       } else {
         setMessage(data.message || 'Error updating profile.');
       }
