@@ -4,13 +4,16 @@ import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
 const RegisterScreen = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
+    if (isLoading) return;
     if (password !== confirmPassword) {
       setMessage('Passwords do not match.');
       return;
@@ -20,7 +23,7 @@ const RegisterScreen = () => {
       const response = await fetch('http://10.0.2.2:8080/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, email, password }),
       });
 
       const data = await response.json();
@@ -34,12 +37,22 @@ const RegisterScreen = () => {
     } catch (error) {
       setMessage('Error during registration. Please try again later.');
       console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create an Account</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        value={username}
+        onChangeText={setUsername}
+        keyboardType="username"
+        required
+      />
       <TextInput
         style={styles.input}
         placeholder="Email"

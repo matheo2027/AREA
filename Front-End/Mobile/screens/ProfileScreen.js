@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,52 +9,56 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import axios from 'axios';
 import Header from '../components/Header';
 
 const ProfileScreen = () => {
-  const [name, setName] = useState('John Doe');
-  const [email, setEmail] = useState('johndoe@example.com');
+  const [username, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('1234567890');
-  const [address, setAddress] = useState('123 Main Street');
-  const [profilePicture, setProfilePicture] = useState(
-    'https://via.placeholder.com/150' //  Profile picture
-  );
 
-  const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
+  useEffect(() => {
+    // Fetch user data from the backend
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get('http://10.0.2.2:8080/user');
+        const { username, email, } = response.data;
 
-    if (!result.canceled) {
-      setProfilePicture(result.assets[0].uri);
+        setName(username);
+        setEmail(email);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        Alert.alert('Error', 'Failed to load profile data.');
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const handleSave = async () => {
+    try {
+      await axios.put('http://10.0.2.2:8080/user', {
+        username,
+        email,
+        password
+      });
+      Alert.alert('Profile Updated', 'Your profile changes have been saved!');
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      Alert.alert('Error', 'Failed to save profile changes.');
     }
-  };
-
-  // Function to save changes
-  const handleSave = () => {
-    Alert.alert('Profile Updated', 'Your profile changes have been saved!');
   };
 
   return (
     <View style={styles.container}>
       <Header />
       <ScrollView contentContainerStyle={styles.content}>
-        {/* Profile Picture */}
-        <TouchableOpacity onPress={pickImage}>
-          <Image source={{ uri: profilePicture }} style={styles.profileImage} />
-          <Text style={styles.changePhotoText}>Change Photo</Text>
-        </TouchableOpacity>
 
         {/* Name */}
         <Text style={styles.label}>Name</Text>
         <TextInput
           style={styles.input}
-          value={name}
+          value={username}
           onChangeText={setName}
           placeholder="Enter your name"
         />
@@ -77,25 +81,6 @@ const ProfileScreen = () => {
           onChangeText={setPassword}
           placeholder="Enter your password"
           secureTextEntry
-        />
-
-        {/* Phone Number */}
-        <Text style={styles.label}>Phone Number</Text>
-        <TextInput
-          style={styles.input}
-          value={phone}
-          onChangeText={setPhone}
-          placeholder="Enter your phone number"
-          keyboardType="phone-pad"
-        />
-
-        {/* Address */}
-        <Text style={styles.label}>Address</Text>
-        <TextInput
-          style={styles.input}
-          value={address}
-          onChangeText={setAddress}
-          placeholder="Enter your address"
         />
 
         {/* Save */}

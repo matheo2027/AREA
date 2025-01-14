@@ -46,9 +46,9 @@ app.get('/', (req, res) => {
 // Route register
 app.post('/auth/register', async (req, res) => {
 
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  if (!email || !password) {
+  if (!username || !email || !password) {
     return res.status(400).json({ message: 'Email and password are required.' });
   }
 
@@ -62,8 +62,8 @@ app.post('/auth/register', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const insertQuery = 'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id';
-    const result = await pool.query(insertQuery, [email, hashedPassword]);
+    const insertQuery = 'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id';
+    const result = await pool.query(insertQuery, [username, email, hashedPassword]);
 
     return res.status(201).json({ success: true, userId: result.rows[0].id });
   } catch (error) {
