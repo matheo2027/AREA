@@ -1,5 +1,8 @@
-# Utiliser l'image officielle de React Native (par exemple)
-FROM reactnativecommunity/react-native-android:latest
+# Utiliser une image Node.js comme base
+FROM node:18-alpine
+
+# Installer Expo CLI globalement
+RUN npm install -g expo-cli
 
 # Définir le dossier de travail
 WORKDIR /app
@@ -10,8 +13,11 @@ COPY package*.json ./
 # Installer les dépendances
 RUN npm install
 
-# Copier tout le code
+# Copier tout le code source
 COPY . .
 
-# Commande pour construire l'application
-CMD ["npm", "run", "android"]
+# Exposer le port par défaut pour Expo
+EXPOSE 19000 19001 19002
+
+# Lancer le serveur Expo
+CMD ["npm", "start"]
