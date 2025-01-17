@@ -10,6 +10,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [userId, setUserId] = useState(null); // <-- on stocke l'id ici
   const router = useRouter();
 
   // Fonction pour gérer la soumission du formulaire
@@ -32,8 +33,11 @@ export default function Register() {
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.ok && data.success) {
         setMessage('Account created successfully!');
+        // On récupère et on stocke l'userId renvoyé par l'API
+        setUserId(data.userId);
+        localStorage.setItem('userId', data.userId); // Optionnel
         router.push('/dashboard');
       } else {
         setMessage(data.message || 'An error occurred.');
@@ -84,6 +88,9 @@ export default function Register() {
           <button type="submit" className={styles.button}>Sign Up</button>
         </form>
         {message && <p className={styles.message}>{message}</p>}
+
+        {/* Pour visualiser l'userId si besoin */}
+        {userId && <p className={styles.message}>User ID: {userId}</p>}
       </div>
     </div>
   );

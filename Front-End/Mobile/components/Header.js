@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd',
   },
   logo: { width: 30, height: 30 },
-  link: { fontSize: 16, color: '#0054AD', fontWeight: 'bold' },
+  link: { fontSize: 16, color: '#007BFF', fontWeight: 'bold' },
 });
 
 export default Header;
