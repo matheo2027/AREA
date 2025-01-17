@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   cardLogo: { width: 40, height: 40, marginRight: 10 },
   selectedText: { fontSize: 16, fontWeight: 'bold' },
   addButton: {
-    backgroundColor: '#0054AD',
+    backgroundColor: '#007BFF',
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   },
   addButtonText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
   saveButton: {
-    backgroundColor: '#0054AD',
+    backgroundColor: '#007BFF',
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',

@@ -1,7 +1,45 @@
-import Image from 'next/image';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 
-export default function Home() {
+export default function Dashboard() {
+  const [areas, setAreas] = useState([]);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    // Récupérer l'userId depuis le localStorage (ou via un state global, etc.)
+    const storedUserId = localStorage.getItem('userId');
+    if (!storedUserId) {
+      setMessage('No user ID found. Please log in.');
+      return;
+    }
+
+    // Faire un fetch GET /areas en passant x-user-id
+    const fetchAreas = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/areas', {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-user-id': storedUserId,  // indispensable pour checkAuth
+          },
+        });
+        const data = await response.json();
+        if (response.ok && data.success) {
+          setAreas(data.areas);
+        } else {
+          setMessage(data.message || 'Unable to fetch areas');
+        }
+      } catch (err) {
+        console.error('Error fetching areas:', err);
+        setMessage('Error fetching areas');
+      }
+    };
+
+    fetchAreas();
+  }, []);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -9,27 +47,31 @@ export default function Home() {
           <h1>AREA</h1>
         </div>
         <nav className={styles.nav}>
-          <a href="#dashboard">Dashboard</a>
+          <a href="/dashboard">Dashboard</a>
           <a href="/services">Services</a>
           <a href="/ar-editor">AR Editor</a>
         </nav>
       </header>
+
       <main className={styles.main}>
-        <section className={styles.hero}>
-          <Image
-            src="/images/hero-illustration.svg"
-            alt="No Areas Yet Illustration"
-            width={400}
-            height={300}
-          />
-          <h2>No Areas yet...</h2>
-          <p>
-            <a href="#how-it-works" className={styles.link}>
-              How does it work?
-            </a>
-          </p>
-        </section>
+        <h2>My Areas</h2>
+
+        {message && <p>{message}</p>}
+
+        {areas.length === 0 ? (
+          <p>No Areas yet...</p>
+        ) : (
+          <ul>
+            {areas.map((area) => (
+              <li key={area.id}>
+                <strong>Action:</strong> {area.action} &nbsp; 
+                <strong>Reaction:</strong> {area.reaction}
+              </li>
+            ))}
+          </ul>
+        )}
       </main>
+
       <footer className={styles.footer}>
         <p>© 2024 AREA. All rights reserved.</p>
       </footer>

@@ -14,7 +14,7 @@ const ToggleSwitch = ({ label, initialValue, onToggle }) => {
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <Switch
-        trackColor={{ false: '#ccc', true: '#0054AD' }}
+        trackColor={{ false: '#ccc', true: '#007BFF' }}
         thumbColor={isEnabled ? '#fff' : '#fff'}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
