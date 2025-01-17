@@ -63,9 +63,10 @@ services:
     ports:
       - "8081:8081"
     volumes:
-      - ./Front-End/Web:/usr/src/app
+      - ./shared:/usr/src/app/shared
     depends_on:
       - server
+      - client_mobile
     networks:
       - area_network
 
@@ -80,10 +81,9 @@ services:
       - "19001:19001" # Tunnel
       - "19002:19002" # Metro Bundler
     volumes:
-      - ./Front-End/Mobile:/app
+      - ./shared:/app/shared
     depends_on:
       - server
-      - client_web
     networks:
       - area_network
 
@@ -95,3 +95,4 @@ networks:
 volumes:
   postgres_data:
   pgadmin_data:
+  shared:

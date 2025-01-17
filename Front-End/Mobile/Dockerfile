@@ -10,9 +10,12 @@ COPY .expo /.expo
 
 WORKDIR /Mobile
 
+RUN mkdir -p /app/shared
+
 EXPOSE 19000
 EXPOSE 19001
 EXPOSE 19002
 
 RUN npm install && npm install -g expo-cli
+
 CMD [ "npm", "start" ]
