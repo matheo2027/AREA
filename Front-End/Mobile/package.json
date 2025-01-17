@@ -4,13 +4,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --tunnel",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
   "dependencies": {
     "@expo/metro-runtime": "^4.0.0",
+    "@expo/ngrok": "^4.1.0",
     "@react-navigation/native": "^7.0.13",
     "@react-navigation/stack": "^7.0.18",
     "@unimodules/core": "^5.1.2",

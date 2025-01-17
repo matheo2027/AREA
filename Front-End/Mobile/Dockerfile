@@ -1,23 +1,18 @@
-# Utiliser une image Node.js comme base
-FROM node:18-alpine
+FROM ubuntu:22.04
 
-# Installer Expo CLI globalement
-RUN npm install -g expo-cli
+RUN apt-get update && \
+  apt-get install -y curl && \
+  curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+  apt-get install -y nodejs
 
-# Définir le dossier de travail
-WORKDIR /app
-
-# Copier les fichiers package.json et package-lock.json
 COPY package*.json ./
+COPY .expo /.expo
 
-# Installer les dépendances
-RUN npm install
+WORKDIR /Mobile
 
-# Copier tout le code source
-COPY . .
+EXPOSE 19000
+EXPOSE 19001
+EXPOSE 19002
 
-# Exposer le port par défaut pour Expo
-EXPOSE 19000 19001 19002
-
-# Lancer le serveur Expo
-CMD ["npm", "start"]
+RUN npm install && npm install -g expo-cli
+CMD [ "npm", "start" ]
