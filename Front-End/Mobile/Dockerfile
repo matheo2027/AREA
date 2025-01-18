@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 # Utiliser une image Node.js officielle
 FROM node:20
 
@@ -15,13 +14,18 @@ WORKDIR /usr/src/app
 
 # Copier les fichiers package.json et package-lock.json
 COPY package.json package-lock.json ./
-=======
+
 FROM node:18-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
->>>>>>> Stashed changes
+
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
 
 RUN npm install
 
