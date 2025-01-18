@@ -15,17 +15,10 @@ WORKDIR /usr/src/app
 # Copier les fichiers package.json et package-lock.json
 COPY package.json package-lock.json ./
 
-# Installer les dépendances
 RUN npm install
 
-# Installer Expo CLI globalement
-RUN npm install -g expo-cli
-
-# Copier tout le reste du projet
 COPY . .
 
-# Exposer les ports nécessaires
-EXPOSE 19000 19001 19002
+EXPOSE 19000
 
-# Commande pour démarrer Expo
-CMD ["npm", "start"]
+CMD ["expo", "start", "--tunnel"]
