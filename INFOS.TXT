@@ -1,4 +1,4 @@
-.env : racine et dans le Back-End
+.env : racine, Back-End, Front WEB et Front Mobile
 
 FRONT WEB : http://localhost:8081/
 

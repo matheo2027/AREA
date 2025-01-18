@@ -1,17 +1,21 @@
-# Utiliser l'image officielle de React Native (par exemple)
-FROM reactnativecommunity/react-native-android:latest
+FROM ubuntu:22.04
 
-# Définir le dossier de travail
-WORKDIR /app
+RUN apt-get update && \
+  apt-get install -y curl && \
+  curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+  apt-get install -y nodejs
 
-# Copier les fichiers package.json et package-lock.json
 COPY package*.json ./
+COPY .expo /.expo
 
-# Installer les dépendances
-RUN npm install
+WORKDIR /Mobile
 
-# Copier tout le code
-COPY . .
+RUN mkdir -p /app/shared
 
-# Commande pour construire l'application
-CMD ["npm", "run", "android"]
+EXPOSE 19000
+EXPOSE 19001
+EXPOSE 19002
+
+RUN npm install && npm install -g expo-cli
+
+CMD [ "npm", "start" ]
