@@ -72,15 +72,19 @@ services:
   client_mobile:
     build:
       context: ./Front-End/Mobile
-    environment:
-      EXPO_HOST: "lan"
-      EXPO_PORT: 19000
     ports:
-      - "19000:19000"
-      - "19001:19001" # Expo DevTools
-      - "19002:19002" # Metro Bundler
+      - "19000:19000" # Expo DevTools
+      - "19001:19001" # Metro bundler
+      - "19002:19002" # Tunnel (Expo Go)
+    environment:
+      - API_URL=http://server:8080
+      - NODE_ENV=development
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+      - REACT_NATIVE_PACKAGER_HOSTNAME=172.20.10.4
     volumes:
-      - ./Front-End/Mobile:/usr/src/app
+      - ./Front-End/Mobile:/app
+    depends_on:
+      - server
     networks:
       - area_network
 
