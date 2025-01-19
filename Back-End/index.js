@@ -516,7 +516,7 @@ app.post('/reactions', async (req, res) => {
 setInterval(() => {
   handleGitHubStar()
     .catch((err) => console.error('Erreur lors de la vérification périodique :', err));
-}, 30000); // 30 secondes pour tester
+}, 300000); // 30 secondes pour tester
 
 app.post('/actions', async (req, res) => {
   try {

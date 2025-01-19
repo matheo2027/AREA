@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Récupérer l'userId depuis le localStorage (ou via un state global, etc.)
+    // Récupérer l'userId depuis le localStorage
     const storedUserId = localStorage.getItem('userId');
     if (!storedUserId) {
       setMessage('No user ID found. Please log in.');
@@ -22,7 +22,7 @@ export default function Dashboard() {
         const response = await fetch('http://localhost:8080/areas', {
           headers: {
             'Content-Type': 'application/json',
-            'x-user-id': storedUserId,  // indispensable pour checkAuth
+            'x-user-id': storedUserId, // indispensable pour checkAuth
           },
         });
         const data = await response.json();
@@ -56,14 +56,14 @@ export default function Dashboard() {
       <main className={styles.main}>
         <h2>My Areas</h2>
 
-        {message && <p>{message}</p>}
+        {message && <p className={styles.message}>{message}</p>}
 
         {areas.length === 0 ? (
-          <p>No Areas yet...</p>
+          <p className={styles.message}>No Areas yet...</p>
         ) : (
-          <ul>
+          <ul className={styles.areaList}>
             {areas.map((area) => (
-              <li key={area.id}>
+              <li key={area.id} className={styles.areaItem}>
                 <strong>Action:</strong> {area.action} &nbsp; 
                 <strong>Reaction:</strong> {area.reaction}
               </li>

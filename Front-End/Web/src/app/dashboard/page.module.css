@@ -1,60 +1,106 @@
 .container {
-    font-family: 'Roboto', sans-serif;
-    color: #333333;
-    background-color: #f5f5f5;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f8fb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  background-color: #007acc;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .logo h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #d6e9ff;
+}
+
+.main {
+  flex: 1;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.main h2 {
+  font-size: 28px;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.message {
+  font-size: 16px;
+  color: #555555;
+}
+
+.areaList {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.areaItem {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 15px;
+  display: flex; /* Utiliser Flexbox */
+  align-items: center; /* Centrer verticalement */
+  justify-content: center; /* Centrer horizontalement */
+  text-align: center; /* Centrer le texte */
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #333; /* Couleur sombre pour le texte */
+}
+
+.areaItem strong {
+  color: #0056b3; /* Couleur bleu foncé pour les titres */
+}
+
+
+.footer {
+  background-color: #333333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    background-color: #005a9c;
-    color: #ffffff;
+    flex-direction: column;
+    text-align: center;
   }
-  
-  .header .logo h1 {
-    margin: 0;
+
+  .nav {
+    margin-top: 10px;
   }
-  
-  .nav a {
-    color: #ffffff;
-    margin-left: 1.5rem;
-    text-decoration: none;
-  }
-  
-  .nav a:hover {
-    text-decoration: underline;
-  }
-  
+
   .main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem;
+    padding: 20px 10px;
   }
-  
-  .hero h2 {
-    color: #005a9c;
+
+  .areaItem {
+    font-size: 14px;
+    padding: 10px;
   }
-  
-  .hero p .link {
-    color: #005a9c;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  
-  .footer {
-    background-color: #333333;
-    color: #ffffff;
-    width: 100%;
-    text-align: center;
-    padding: 1rem;
-  }
-  
+}
