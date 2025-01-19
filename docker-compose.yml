@@ -90,7 +90,7 @@ services:
 
 networks:
   area_network:
-    driver: host
+    driver: bridge
 
 volumes:
   postgres_data:

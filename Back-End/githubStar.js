@@ -1,11 +1,9 @@
-// githubStar.js
-
 require('dotenv').config();
 const { sendEmail } = require('./emailReaction');
 const { Client, GatewayIntentBits } = require('discord.js');
 const { Pool } = require('pg');
 
-// 1. Configurer le pool PG
+// Configurer le pool PostgreSQL
 const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -14,85 +12,120 @@ const pool = new Pool({
   database: process.env.DB_NAME,
 });
 
-// 2. Créer l’instance du bot Discord
+// Configurer le client Discord
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.DirectMessages,
-  ],
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages],
   partials: ['CHANNEL'],
 });
 
-// 3. Se connecter avec le token
+// Connecter le bot Discord
 client.login(process.env.DISCORD_BOT_TOKEN);
 
-// 4. Log quand le bot est prêt
 client.on('ready', () => {
-  // console.log(`Bot Discord connecté en tant que ${client.user.tag}`);
+  console.log(`Bot Discord connecté en tant que ${client.user.tag}`);
 });
 
-// 5. Logique "githubStar" => "sendEmail" ou "discordNotify"
-async function handleGitHubStar(payload) {
+// Fonction pour gérer les événements GitHub Star
+async function handleGitHubStar() {
   try {
-    // Récupérer toutes les areas dont l'action = "githubStar"
+    // Récupérer toutes les actions githubStar et leurs réactions associées
     const query = `
-      SELECT a.*, u.email
-      FROM areas a
+      SELECT a.parameters AS repo_url, ar.reaction, u.email, r.username
+      FROM actions a
+      JOIN areas ar ON a.name = ar.action
       JOIN users u ON a.user_id = u.id
-      WHERE a.action = 'githubStar'
+      LEFT JOIN reactions r ON ar.reaction = r.name AND a.user_id = r.user_id
+      WHERE a.name = 'githubStar'
     `;
     const result = await pool.query(query);
-    const areasList = result.rows;
+    const actionsList = result.rows;
 
-    for (const area of areasList) {
-      // 1) Si la reaction = "sendEmail", on envoie un mail
-      if (area.reaction === 'sendEmail') {
-        await sendEmail(
-          area.email,
-          'New GitHub Star',
-          `Your repository just received a star from ${payload.sender.login}!`
-        );
-        console.log(`[REACTION] Email envoyé à ${area.email}`);
+    for (const action of actionsList) {
+      const { repo_url, reaction, username, email } = action;
 
-      // 2) Si la reaction = "discordNotify", on envoie un DM (message privé)
-      } else if (area.reaction === 'discordNotify') {
-        // Récupérer le discordTag depuis la table reactions
-        const reactionQuery = `
-          SELECT username
-          FROM reactions
-          WHERE user_id = $1
-            AND name = 'discordNotify'
-          LIMIT 1
-        `;
-        const reactionRes = await pool.query(reactionQuery, [area.user_id]);
-        if (reactionRes.rows.length === 0) {
-          console.log(
-            `[REACTION] Aucune entrée 'discordNotify' pour user_id=${area.user_id} dans la table reactions`
-          );
+      try {
+        // Obtenir le nombre actuel d'étoiles du dépôt
+        const currentStars = await getGitHubStars(repo_url);
+        if (currentStars === null) {
+          console.log(`[ERROR] Impossible de récupérer les étoiles pour ${repo_url}`);
           continue;
         }
 
-        const discordTag = reactionRes.rows[0].username; // ex: "Babssow29#1234"
+        // Vérifier si une nouvelle étoile a été ajoutée
+        const lastStarsQuery = `SELECT last_stars FROM star_tracking WHERE repo_url = $1 LIMIT 1`;
+        const lastStarsResult = await pool.query(lastStarsQuery, [repo_url]);
 
-        // Chercher l'utilisateur dans le cache du bot via le tag
-        const targetUser = client.users.cache.find((u) => u.tag === discordTag);
-        if (!targetUser) {
-          console.log(`[REACTION] Impossible de trouver ${discordTag} dans le cache du bot`);
-          continue;
+        let lastStars = 0;
+        if (lastStarsResult.rows.length > 0) {
+          lastStars = lastStarsResult.rows[0].last_stars;
         }
 
-        // Envoyer le DM
-        await targetUser.send(`Your repository just received a star from ${payload.sender.login}!`);
-        console.log(`[REACTION] DM Discord envoyé à ${discordTag}`);
+        if (currentStars > lastStars) {
+          console.log(`Nouvelle étoile détectée pour ${repo_url}`);
 
-      } // fin du else if
+          // Réaction : sendEmail
+          if (reaction === 'sendEmail') {
+            await sendEmail(
+              email,
+              'New GitHub Star',
+              `Your repository ${repo_url} just received a new star!`
+            );
+            console.log(`[REACTION] Email envoyé à ${email}`);
+          }
+
+          // Réaction : discordNotify
+          if (reaction === 'discordNotify') {
+            const targetUser = client.users.cache.find((u) => u.tag === username);
+
+            if (!targetUser) {
+              console.log(`[REACTION] Utilisateur Discord introuvable pour ${username}`);
+              continue;
+            }
+
+            await targetUser.send(`Your repository ${repo_url} just received a new star!`);
+            console.log(`[REACTION] DM Discord envoyé à ${username}`);
+          }
+
+          // Mettre à jour le dernier nombre d'étoiles
+          const updateStarsQuery = `
+            INSERT INTO star_tracking (repo_url, last_stars)
+            VALUES ($1, $2)
+            ON CONFLICT (repo_url)
+            DO UPDATE SET last_stars = EXCLUDED.last_stars
+          `;
+          await pool.query(updateStarsQuery, [repo_url, currentStars]);
+        }
+      } catch (error) {
+        console.error(`[ERROR] Erreur dans la réaction pour ${repo_url}`, error);
+      }
     }
-
-    console.log(`[ACTION] Nouveau star GitHub par ${payload.sender.login}`);
-  } catch (err) {
-    console.error('Error checking areas for githubStar:', err);
+  } catch (error) {
+    console.error('[ERROR] Erreur dans handleGitHubStar:', error);
   }
 }
 
-// Export si besoin
+// Fonction pour récupérer le nombre d'étoiles d'un dépôt GitHub
+async function getGitHubStars(repoUrl) {
+  const axios = require('axios');
+  try {
+    const repoPath = repoUrl.replace('https://github.com/', '');
+
+    // Appeler l'API GitHub pour récupérer le nombre d'étoiles
+    const response = await axios.get(`https://api.github.com/repos/${repoPath}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      },
+    });
+
+    return response.data.stargazers_count;
+  } catch (error) {
+    console.error('[ERROR] Erreur lors de la récupération des étoiles GitHub:', error);
+    return null;
+  }
+}
+
+// Lancer la surveillance périodique des dépôts GitHub
+//setInterval(handleGitHubStar, 30000);
+
+// Exporter la fonction si besoin
 module.exports = { handleGitHubStar };

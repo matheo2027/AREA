@@ -6,19 +6,59 @@
     "current_time": 1531680780,
     "services": [
       {
-        "name": "facebook",
+        "name": "Discord",
         "actions": [
           {
-            "name": "new_message_in_group",
-            "description": "A new message is posted in the group"
+            "name": "message_posted_on_server",
+            "description": "A message is posted on a server"
           }
         ],
         "reactions": [
           {
-            "name": "like_message",
-            "description": "The user likes a message"
+            "name": "receive_private_message",
+            "description": "The user receives a private message"
           }
         ]
+      },
+      {
+        "name": "Github",
+        "actions": [
+          {
+            "name": "check_if_repo_stars",
+            "description": "Check if a repository has been starred"
+          }
+        ],
+        "reactions": []
+      },
+      {
+        "name": "Youtube",
+        "actions": [
+          {
+            "name": "check_if_new_video_available",
+            "description": "Check if a new video from a channel is available"
+          }
+        ],
+        "reactions": []
+      },
+      {
+        "name": "Mail",
+        "actions": [],
+        "reactions": [
+          {
+            "name": "send_email_to_connected_address",
+            "description": "Send an email to the address used to connect"
+          }
+        ]
+      },
+      {
+        "name": "Weathermap",
+        "actions": [
+          {
+            "name": "retrieve_weather_of_requested_city",
+            "description": "Retrieve the weather of the requested city"
+          }
+        ],
+        "reactions": []
       }
     ]
   }
