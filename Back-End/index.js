@@ -78,6 +78,11 @@ app.get('/', (req, res) => {
   res.send('Serveur Express est opérationnel !');
 });
 
+// Route pour retourner about.json
+app.get('/about.json', (req, res) => {
+  res.sendFile(__dirname + '/about.json'); // Assure-toi que le chemin est correct
+});
+
 // ------------ AUTHENTIFICATION ------------
 
 // Route Register
@@ -102,8 +107,8 @@ app.post('/auth/register', async (req, res) => {
 
     // Insérer en base
     const insertQuery = `
-      INSERT INTO users (email, password) 
-      VALUES ($1, $2) 
+      INSERT INTO users (email, password)
+      VALUES ($1, $2)
       RETURNING id
     `;
     const result = await pool.query(insertQuery, [email, hashedPassword]);
