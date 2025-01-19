@@ -4,7 +4,7 @@ require('dotenv').config();
 const nodemailer = require('nodemailer');
 
 /**
- * Fonction "Send Email" : 
+ * Fonction "Send Email" :
  * @param {string} destinataire - adresse email
  * @param {string} subject - objet du mail
  * @param {string} text - contenu texte du mail
@@ -28,8 +28,6 @@ async function sendEmail(destinataire, subject, text) {
     subject,
     text,
   });
-
-  console.log('[REACTION] Email envoyé avec succès, ID:', info.messageId);
 }
 
 // On exporte la fonction
