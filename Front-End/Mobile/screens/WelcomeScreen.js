@@ -7,6 +7,9 @@ import * as Github from 'expo-auth-session/providers/github';
 import * as Discord from 'expo-auth-session/providers/discord';
 import * as Linking from 'expo-linking';
 import CustomButton from '../components/CustomButton';
+import GoogleOAuth from '../config/GoogleOAuth';
+import DiscordOAuth from '../config/DiscordOAuth';
+import GitHubOAuth from '../config/GitHubOAuth';
 
 const WelcomeScreen = ({ navigation }) => {
   const [requestGoogle, responseGoogle, promptGoogle] = Google.useAuthRequest({
@@ -103,7 +106,7 @@ const WelcomeScreen = ({ navigation }) => {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
@@ -113,5 +116,3 @@ const styles = StyleSheet.create({
   buttonContainer: { flexDirection: 'row', gap: 10 },
   oauthContainer: { marginTop: 20, width: '100%', alignItems: 'center', gap: 10 },
 });
-
-export default WelcomeScreen;

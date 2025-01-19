@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import styles from './register.module.css';
 
 export default function Register() {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -27,7 +28,7 @@ export default function Register() {
       const response = await fetch('http://localhost:8080/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, email, password }),
       });
 
       const data = await response.json();
@@ -52,6 +53,14 @@ export default function Register() {
       <div className={styles.box}>
         <h1 className={styles.title}>Create an Account</h1>
         <form onSubmit={handleSubmit} className={styles.form}>
+        <input
+            type="usemrname"
+            placeholder="Username"
+            className={styles.input}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
           <input
             type="email"
             placeholder="Email"
