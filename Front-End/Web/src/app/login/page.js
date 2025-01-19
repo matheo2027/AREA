@@ -8,6 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [userId, setUserId] = useState(null); // <--- on garde l'ID en mémoire
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -22,9 +23,11 @@ export default function Login() {
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.ok && data.success) {
         setMessage('Login successful!');
-        router.push('/dashboard');
+        setUserId(data.userId);            // On stocke l'ID dans le state
+        localStorage.setItem('userId', data.userId); // Optionnel : on stocke dans localStorage
+        router.push('/dashboard');         // Redirection
       } else {
         setMessage(data.message || 'An error occurred.');
       }
@@ -58,6 +61,9 @@ export default function Login() {
           <button type="submit" className={styles.button}>Log In</button>
         </form>
         {message && <p className={styles.message}>{message}</p>}
+
+        {/* Afficher l'userId si tu veux faire du debug */}
+        {userId && <p className={styles.message}>User ID: {userId}</p>}
       </div>
     </div>
   );

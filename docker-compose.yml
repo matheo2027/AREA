@@ -63,21 +63,30 @@ services:
     ports:
       - "8081:8081"
     volumes:
-      - ./Front-End/Web:/usr/src/app
+      - ./shared:/usr/src/app/shared
+    depends_on:
+      - server
+      - client_mobile
+    networks:
+      - area_network
+
+  client_mobile:
+    build:
+      context: ./Front-End/Mobile
+    environment:
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+      - CI=1
+    ports:
+      - "19000:19000" # Expo DevTools
+      - "19001:19001" # Tunnel
+      - "19002:19002" # Metro Bundler
+    volumes:
+      - ./shared:/app/shared
     depends_on:
       - server
     networks:
       - area_network
 
-  # client_mobile:
-  #   build:
-  #     context: ./Front-End/Mobile
-  #   environment:
-  #     API_URL: http://server:8080
-  #   depends_on:
-  #     - server
-  #   networks:
-  #     - area_network
 
 networks:
   area_network:
@@ -86,3 +95,4 @@ networks:
 volumes:
   postgres_data:
   pgadmin_data:
+  shared:

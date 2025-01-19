@@ -15,7 +15,7 @@ const NoAreasScreen = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   title: { fontSize: 22, fontWeight: 'bold' },
-  link: { color: '#0054AD', marginTop: 10 },
+  link: { color: '#007BFF', marginTop: 10 },
 });
 
 export default NoAreasScreen;
