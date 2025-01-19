@@ -7,6 +7,9 @@ export default function AREditor() {
   const [action, setAction] = useState('');
   const [reaction, setReaction] = useState('');
   const [discordUsername, setDiscordUsername] = useState('');
+  const [youtubeChannelId, setYoutubeChannelId] = useState('');
+  const [githubRepoLink, setGithubRepoLink] = useState('');
+  const [weatherCity, setWeatherCity] = useState('');
   const [userId, setUserId] = useState(null);
   const [message, setMessage] = useState('');
 
@@ -26,7 +29,79 @@ export default function AREditor() {
         throw new Error('No userId found in localStorage');
       }
 
-      // Toujours insérer l’AREA
+      // Handle GitHub action
+      if (action === 'githubStar' && githubRepoLink) {
+        const actionResponse = await fetch('http://localhost:8080/actions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-user-id': userId,
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            name: 'githubStar',
+            parameters: githubRepoLink,
+          }),
+        });
+
+        if (!actionResponse.ok) {
+          const errorData = await actionResponse.json();
+          throw new Error(errorData.message || 'Failed to create ACTION for GitHub');
+        }
+
+        const actionData = await actionResponse.json();
+        console.log('GitHub ACTION created:', actionData);
+      }
+
+      // Handle YouTube action
+      if (action === 'youtubeNewVideo' && youtubeChannelId) {
+        const actionResponse = await fetch('http://localhost:8080/actions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-user-id': userId,
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            name: 'youtubeNewVideo',
+            parameters: youtubeChannelId,
+          }),
+        });
+
+        if (!actionResponse.ok) {
+          const errorData = await actionResponse.json();
+          throw new Error(errorData.message || 'Failed to create ACTION for YouTube');
+        }
+
+        const actionData = await actionResponse.json();
+        console.log('YouTube ACTION created:', actionData);
+      }
+
+      // Handle Weather action
+      if (action === 'weatherRain' && weatherCity) {
+        const actionResponse = await fetch('http://localhost:8080/actions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-user-id': userId,
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            name: 'weatherRain',
+            parameters: weatherCity,
+          }),
+        });
+
+        if (!actionResponse.ok) {
+          const errorData = await actionResponse.json();
+          throw new Error(errorData.message || 'Failed to create ACTION for Weather');
+        }
+
+        const actionData = await actionResponse.json();
+        console.log('Weather ACTION created:', actionData);
+      }
+
+      // Always insert AREA
       const areaResponse = await fetch('http://localhost:8080/areas', {
         method: 'POST',
         headers: {
@@ -35,14 +110,16 @@ export default function AREditor() {
         },
         body: JSON.stringify({ action, reaction }),
       });
+
       if (!areaResponse.ok) {
         const errorData = await areaResponse.json();
         throw new Error(errorData.message || 'Failed to create AREA');
       }
+
       const areaData = await areaResponse.json();
       console.log('AREA created:', areaData);
 
-      // Si la réaction choisie est discordNotify, on fait une insertion en plus
+      // Handle Discord reaction
       if (reaction === 'discordNotify') {
         const reactionResponse = await fetch('http://localhost:8080/reactions', {
           method: 'POST',
@@ -53,22 +130,22 @@ export default function AREditor() {
           body: JSON.stringify({
             user_id: userId,
             name: 'discordNotify',
-            username: discordUsername, // identifiant Discord
+            username: discordUsername,
           }),
         });
+
         if (!reactionResponse.ok) {
           const errorData = await reactionResponse.json();
           throw new Error(errorData.message || 'Failed to create REACTION');
         }
+
         const reactionData = await reactionResponse.json();
         console.log('REACTION created:', reactionData);
-
-        setMessage('AREA + Reaction successfully created!');
-      } else {
-        setMessage('AREA successfully created (no Discord reaction).');
       }
+
+      setMessage('AREA successfully created!');
     } catch (error) {
-      console.error('Error creating AREA or REACTION:', error);
+      console.error('Error:', error);
       setMessage(error.message);
     }
   };
@@ -107,10 +184,61 @@ export default function AREditor() {
                 <option value="">-- Choose an Action --</option>
                 <option value="githubStar">GitHub - New Star</option>
                 <option value="discordMsg">Discord - New Message</option>
-                <option value="newTweet">Twitter - New Tweet</option>
-                <option value="youtubeNewVideo">YouTube - New Video</option> {/* Ajouté ici */}
+                <option value="youtubeNewVideo">YouTube - New Video</option>
+                <option value="weatherRain">Weather - Rain Forecast</option>
               </select>
             </div>
+
+            {action === 'githubStar' && (
+              <div className={styles.selectRow}>
+                <label htmlFor="githubRepoLink" className={styles.selectLabel}>
+                  GitHub Repository Link
+                </label>
+                <input
+                  type="text"
+                  id="githubRepoLink"
+                  className={styles.selectInput}
+                  value={githubRepoLink}
+                  onChange={(e) => setGithubRepoLink(e.target.value)}
+                  placeholder="Ex: https://github.com/octocat/Hello-World"
+                  required
+                />
+              </div>
+            )}
+
+            {action === 'youtubeNewVideo' && (
+              <div className={styles.selectRow}>
+                <label htmlFor="youtubeChannelId" className={styles.selectLabel}>
+                  YouTube Channel ID
+                </label>
+                <input
+                  type="text"
+                  id="youtubeChannelId"
+                  className={styles.selectInput}
+                  value={youtubeChannelId}
+                  onChange={(e) => setYoutubeChannelId(e.target.value)}
+                  placeholder="Ex: UC_x5XG1OV2P6uZZ5FSM9Ttw"
+                  required
+                />
+              </div>
+            )}
+
+            {action === 'weatherRain' && (
+              <div className={styles.selectRow}>
+                <label htmlFor="weatherCity" className={styles.selectLabel}>
+                  City for Weather Forecast
+                </label>
+                <input
+                  type="text"
+                  id="weatherCity"
+                  className={styles.selectInput}
+                  value={weatherCity}
+                  onChange={(e) => setWeatherCity(e.target.value)}
+                  placeholder="Ex: Paris"
+                  required
+                />
+              </div>
+            )}
 
             <div className={styles.selectRow}>
               <label htmlFor="thenSelect" className={styles.selectLabel}>
@@ -125,11 +253,9 @@ export default function AREditor() {
                 <option value="">-- Choose a Reaction --</option>
                 <option value="sendEmail">Send an Email</option>
                 <option value="discordNotify">Send Discord Message</option>
-                <option value="postTweet">Post a Tweet</option>
               </select>
             </div>
 
-            {/* Si la réaction = discordNotify, on affiche un champ "Identifiant Discord" */}
             {reaction === 'discordNotify' && (
               <div className={styles.selectRow}>
                 <label htmlFor="discordUsername" className={styles.selectLabel}>
