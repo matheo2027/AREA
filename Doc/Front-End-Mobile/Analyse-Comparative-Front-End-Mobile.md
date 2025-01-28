@@ -1,7 +1,3 @@
-Voici une restructuration de l’étude comparative sur **React Native**, **Flutter** et **Xamarin** en suivant le modèle de l’analyse comparative de **Next.js**, **Angular**, et **Nuxt.js** :
-
----
-
 # Analyse Comparative : React Native, Flutter et Xamarin pour le Développement Mobile Accessible
 
 ## Introduction

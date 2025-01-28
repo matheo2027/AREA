@@ -1,7 +1,3 @@
-Voici une version modifiée de l’étude comparative sur **PostgreSQL** en prenant en compte les besoins des **personnes en situation de handicap**, ainsi que les critères de performance, d’accessibilité et de scalabilité :
-
----
-
 # Analyse Comparative : PostgreSQL pour les Bases de Données Accessibles et Performantes
 
 ## Introduction

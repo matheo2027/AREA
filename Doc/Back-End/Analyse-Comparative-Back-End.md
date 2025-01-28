@@ -1,7 +1,3 @@
-Voici une version modifiée de l’analyse comparative d'**Express.js** pour le backend, prenant en compte les critères d’**accessibilité**, de **scalabilité**, de **performance**, et des **besoins des personnes en situation de handicap** :
-
----
-
 # Analyse Comparative : Express.js pour le Backend Accessible et Performant
 
 ## Introduction
