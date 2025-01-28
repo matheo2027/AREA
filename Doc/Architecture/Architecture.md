@@ -39,4 +39,26 @@ L'architecture du projet AREA repose sur une communication fluide entre les diff
 
 **Voici un schéma de l'architecture**
 
-![Architecture](Architecture.jpg)
+# Architecture du Projet AREA
+
+Le projet AREA repose sur une architecture modulaire et distribuée où chaque composant communique avec les autres à travers des APIs et des services bien définis.
+
+## Architecture Schématique
+
+```plaintext
++-------------------+      +-------------------+      +------------------+
+|                   |      |                   |      |                  |
+|     Frontend      |----->|     Backend       |----->|    Base de       |
+|  (Web / Mobile)   |      |   (Express.js)    |      |  Données         |
+|                   |      |                   |      |  (PostgreSQL)    |
++-------------------+      +-------------------+      +------------------+
+         |                        |                             |
+         |                        |                             |
+         v                        v                             v
++-------------------+      +-------------------+      +------------------+
+|                   |      |                   |      |                  |
+|  API Externes     |<-----| OAuth2 Auth        |<---->| Conteneurisation  |
+| (Google, Outlook, |      | (Sécurisation)     |      |    avec Docker    |
+|  OneDrive, etc.)  |      |                   |      |  (Docker Compose) |
+|                   |      |                   |      |                  |
++-------------------+      +-------------------+      +------------------+
