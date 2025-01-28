@@ -1,7 +1,7 @@
 # Analyses Comparatives et Justification des Choix Techniques
 
 Dans le cadre du projet AREA, plusieurs solutions ont été analysées pour déterminer les technologies et architectures les plus adaptées à nos besoins. Ce document regroupe les analyses comparatives effectuées et justifie les choix réalisés pour chaque composant clé du projet.
-Afin de se décider, nous avons expérimenter plusieurs POC par stack. Vous pouvez les retrouver dans le dossier ```POC```.
+Afin de se décider, nous avons expérimenter plusieurs POC par stack.
 
 ---
 
@@ -16,7 +16,7 @@ Afin de se décider, nous avons expérimenter plusieurs POC par stack. Vous pouv
 
 ## Backend
 
-**Analyse comparative :** [analyse-backend.md](ComparativeAnalysisBack-end.md)
+**Analyse comparative :** [analyse-backend.md](./Back-End/Analyse-Comparative-Back-End.md)
 
 **Technologies considérées :** Node.js, Next.js, Express.js
 
@@ -33,7 +33,7 @@ Afin de se décider, nous avons expérimenter plusieurs POC par stack. Vous pouv
 
 ## Frontend Web
 
-**Analyse comparative :** [analyse-frontend-web.md](ComparativeAnalysisFront-endWeb.md)
+**Analyse comparative :** [analyse-frontend-web.md](./Front-End-Web/Analyse-Comparative-Front-End-Web.md)
 
 **Technologies considérées :** Vue.js, Nuxt.js, Next.js
 
@@ -49,7 +49,7 @@ Afin de se décider, nous avons expérimenter plusieurs POC par stack. Vous pouv
 
 ## Client Mobile
 
-**Analyse comparative :** [analyse-client-mobile.md](ComparativeAnalysisFront-endMobile.md)
+**Analyse comparative :** [analyse-client-mobile.md](./Front-End-Mobile/Analyse-Comparative-Front-End-Mobile.md)
 
 **Technologies considérées :** React Native, Flutter, Xamarin
 
@@ -64,7 +64,7 @@ Afin de se décider, nous avons expérimenter plusieurs POC par stack. Vous pouv
 
 ## Base de Données
 
-**Analyse comparative :** [analyse-base-de-donnees.md](ComparativeAnalysisBDD.md)
+**Analyse comparative :** [analyse-base-de-donnees.md](./BDD/Analyse-Comparative-BDD.md)
 
 **Technologies considérées :** PostgreSQL, MongoDB, MySQL
 
