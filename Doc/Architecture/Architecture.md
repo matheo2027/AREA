@@ -73,13 +73,13 @@ Le projet AREA repose sur une architecture modulaire et distribuée où chaque c
      +----------------------+
                |
                v
-     +---------------------+                +-------------------------+
-     |   /login/login.js   | <------------> |  /register/register.js  |
-     |     (Connexion)     |                |      (Inscription)      |
-     +---------------------+                +-------------------------+
+     +------------------+                +---------------------+
+     |  /login/page.js  | <------------> |  /register/page.js  |
+     |   (Connexion)    |                |    (Inscription)    |
+     +------------------+                +---------------------+
                |
                v
-     +---------------------------+
-     |  /dashboard/dashboard.js  |
-     |     (Tableau de bord)     |
-     +---------------------------+
+     +----------------------+
+     |  /dashboard/page.js  |
+     |  (Tableau de bord)   |
+     +----------------------+
