@@ -12,12 +12,12 @@ const nodemailer = require('nodemailer');
 async function sendEmail(destinataire, subject, text) {
   // Configurer le transporter
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,     // ex: smtp.gmail.com
-    port: process.env.SMTP_PORT,     // ex: 587
-    secure: false,                   // ou true si port 465 (SSL)
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
     auth: {
-      user: process.env.SMTP_USER,   // ex: tonemail@gmail.com
-      pass: process.env.SMTP_PASS,   // mot de passe d'appli ou pass
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   });
 

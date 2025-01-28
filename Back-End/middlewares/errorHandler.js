@@ -1,19 +1,12 @@
-const { ValidationError, NotFoundError, InternalServerError } = require('../errors');
+// middlewares/errorHandler.js
+module.exports = (err, req, res, next) => {
+  console.error('Error Handler:', err);
 
-const errorHandler = (err, req, res, next) => {
-  if (err instanceof ValidationError || err instanceof NotFoundError || err instanceof InternalServerError) {
-    return res.status(err.statusCode).json({
-      code: err.code,
-      message: err.message,
-      details: err.details || []
-    });
+  // You might have custom error classes
+  if (err.name === 'NotFoundError') {
+    return res.status(404).json({ message: err.message });
   }
 
-  return res.status(500).json({
-    code: 'ERR_INTERNAL',
-    message: 'An unexpected error occurred',
-    details: []
-  });
+  // Otherwise, it's some server error:
+  return res.status(500).json({ message: 'Internal server error' });
 };
-
-module.exports = errorHandler;

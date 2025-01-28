@@ -1,3 +1,4 @@
+// peut être levée quand la validation des données (par exemple dans un formulaire) échoue.
 class ValidationError extends Error {
     constructor(message, details = []) {
       super(message);
@@ -8,6 +9,7 @@ class ValidationError extends Error {
     }
   }
 
+  //peut être levée quand une ressource (ex. un utilisateur, un produit) n’est pas trouvée en base de données.
   class NotFoundError extends Error {
     constructor(message) {
       super(message);
@@ -17,6 +19,7 @@ class ValidationError extends Error {
     }
   }
 
+  // erreur générique utilisée pour les erreurs inattendues côté serveur
   class InternalServerError extends Error {
     constructor(message) {
       super(message);

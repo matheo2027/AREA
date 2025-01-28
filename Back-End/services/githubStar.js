@@ -1,16 +1,7 @@
 require('dotenv').config();
 const { sendEmail } = require('./emailReaction');
 const { Client, GatewayIntentBits } = require('discord.js');
-const { Pool } = require('pg');
-
-// Configurer le pool PostgreSQL
-const pool = new Pool({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+const pool = require('../db');
 
 // Configurer le client Discord
 const client = new Client({
@@ -22,7 +13,6 @@ const client = new Client({
 client.login(process.env.DISCORD_BOT_TOKEN);
 
 client.on('ready', () => {
-  console.log(`Bot Discord connecté en tant que ${client.user.tag}`);
 });
 
 // Fonction pour gérer les événements GitHub Star
