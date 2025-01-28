@@ -62,3 +62,24 @@ Le projet AREA repose sur une architecture modulaire et distribuée où chaque c
 |  OneDrive, etc.)  |      |                   |      |  (Docker Compose) |
 |                   |      |                   |      |                  |
 +-------------------+      +-------------------+      +------------------+
+
+
+
+
+
+     +----------------------+
+     |   /src/app/page.js   |
+     |   (Page d'accueil)   |
+     +----------------------+
+               |
+               v
+     +---------------------+                +----------------------+
+     |   /pages/login.js   | <------------> |  /pages/register.js  |
+     |    (Connexion)      |                |    (Inscription)     |
+     +---------------------+                +----------------------+
+               |
+               v
+     +-----------------------+
+     |  /pages/dashboard.js  |
+     |   (Tableau de bord)   |
+     +-----------------------+
