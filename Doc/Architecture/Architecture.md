@@ -4,7 +4,7 @@ Le projet AREA repose sur une architecture modulaire et distribuée où chaque c
 
 ## 1. Base de Données (BDD)
 La base de données utilisée pour ce projet est **PostgreSQL**. Elle est responsable de la gestion des données de l'application, y compris les informations des utilisateurs, les événements, et d'autres données liées aux services et actions. La communication avec la base de données se fait via le **Backend**, qui interagit avec PostgreSQL en envoyant des requêtes et en récupérant les données nécessaires pour le bon fonctionnement de l'application.
-Pour voir comment va être la BDD référez vous à [ce fichier](./ExplicationBDD.md)
+Pour voir comment va être la BDD référez vous à [ce fichier](../BDD/Explication-BDD.md)
 
 ## 2. Backend (Express.js)
 Le backend de notre application est construit avec **Express.js**. Il agit comme un intermédiaire entre le frontend (Web et Mobile), la base de données, et les API externes. Le backend est responsable de :
@@ -39,4 +39,47 @@ L'architecture du projet AREA repose sur une communication fluide entre les diff
 
 **Voici un schéma de l'architecture**
 
-![Architecture](Architecture.jpg)
+# Architecture du Projet AREA
+
+Le projet AREA repose sur une architecture modulaire et distribuée où chaque composant communique avec les autres à travers des APIs et des services bien définis.
+
+## Architecture Schématique
+
+```plaintext
++-------------------+      +-------------------+      +------------------+
+|                   |      |                   |      |                  |
+|     Frontend      |----->|     Backend       |----->|    Base de       |
+|  (Web / Mobile)   |      |   (Express.js)    |      |  Données         |
+|                   |      |                   |      |  (PostgreSQL)    |
++-------------------+      +-------------------+      +------------------+
+         |                        |                             |
+         |                        |                             |
+         v                        v                             v
++-------------------+      +-------------------+      +------------------+
+|                   |      |                   |      |                  |
+|  API Externes     |<-----| OAuth2 Auth        |<---->| Conteneurisation  |
+| (Google, Outlook, |      | (Sécurisation)     |      |    avec Docker    |
+|  OneDrive, etc.)  |      |                   |      |  (Docker Compose) |
+|                   |      |                   |      |                  |
++-------------------+      +-------------------+      +------------------+
+
+
+
+
+
+     +----------------------+
+     |   /src/app/page.js   |
+     |   (Page d'accueil)   |
+     +----------------------+
+               |
+               v
+     +------------------+                +---------------------+
+     |  /login/page.js  | <------------> |  /register/page.js  |
+     |   (Connexion)    |                |    (Inscription)    |
+     +------------------+                +---------------------+
+               |
+               v
+     +----------------------+
+     |  /dashboard/page.js  |
+     |  (Tableau de bord)   |
+     +----------------------+
