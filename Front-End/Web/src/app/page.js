@@ -22,12 +22,18 @@ export default function Home() {
       <div className={styles.hero}>
         <h1>Welcome to AREA</h1>
         <div className={styles.buttons}>
-          <Link href="/login">
-            <button className={styles.login}>Login</button>
-          </Link>
-          <Link href="/register">
-            <button className={styles.register}>Register</button>
-          </Link>
+
+          <button
+          className={styles.login}
+          onClick={() => window.location.href = '/login'}>
+            Login
+          </button>
+
+          <button
+          className={styles.register}
+          onClick={() => window.location.href = '/register'}>
+            Register
+          </button>
 
         </div>
 
