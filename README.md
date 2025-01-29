@@ -129,6 +129,4 @@ Les contributions sont les bienvenues ! Veuillez suivre les étapes suivantes :
 Ce projet a été réalisé dans le cadre d'Epitech par l'équipe :
 
 - matheo.piques@epitech.eu
-- alex.aubry@epitech.eu
-- godwin.bewa@epitech.eu
 - babacar.sow@epitech.eu
