@@ -1,0 +1,107 @@
+.container {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f8fb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  background-color: #007acc;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .logo h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #d6e9ff;
+}
+
+.main {
+  flex: 1;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.main h2 {
+  font-size: 28px;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.message {
+  font-size: 16px;
+  color: #555555;
+}
+
+.areaList {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.areaItem {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 15px;
+  display: flex; /* Utiliser Flexbox */
+  align-items: center; /* Centrer verticalement */
+  justify-content: center; /* Centrer horizontalement */
+  text-align: center; /* Centrer le texte */
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #333; /* Couleur sombre pour le texte */
+}
+
+.areaItem strong {
+  color: #0056b3; /* Couleur bleu foncé pour les titres */
+}
+
+
+.footer {
+  background-color: #333333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  width: 100%; /* Prendre toute la largeur */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nav {
+    margin-top: 10px;
+  }
+
+  .main {
+    padding: 20px 10px;
+  }
+
+  .areaItem {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

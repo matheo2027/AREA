@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import styles from './page.module.css';
+import Footer from '../components/footer/Footer';
+import Navbar from '../components/navbar/Navbar';
 
 export default function Services() {
   const [modalContent, setModalContent] = useState(null);
@@ -52,16 +54,7 @@ export default function Services() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <h1>AREA</h1>
-        </div>
-        <nav className={styles.nav}>
-          <a href="/dashboard">Dashboard</a>
-          <a href="/services">Services</a>
-          <a href="/ar-editor">AR Editor</a>
-        </nav>
-      </header>
+      <Navbar />
 
       <main className={styles.main}>
         <h2 className={styles.title}>Available Actions</h2>
@@ -107,9 +100,7 @@ export default function Services() {
         </div>
       )}
 
-      <footer className={styles.footer}>
-        <p>© 2024 AREA. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import styles from './page.module.css';
+import Navbar from '../components/navbar/Navbar';
+import Footer from '../components/footer/Footer';
+
 
 export default function AREditor() {
   const [action, setAction] = useState('');
@@ -152,16 +155,7 @@ export default function AREditor() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <h1>AREA</h1>
-        </div>
-        <nav className={styles.nav}>
-          <a href="/dashboard">Dashboard</a>
-          <a href="/services">Services</a>
-          <a href="/ar-editor">AR Editor</a>
-        </nav>
-      </header>
+      <Navbar />
 
       <main className={styles.main}>
         <h2 className={styles.title}>AR Editor</h2>
@@ -282,9 +276,7 @@ export default function AREditor() {
         {message && <p style={{ marginTop: '1rem', color: 'green' }}>{message}</p>}
       </main>
 
-      <footer className={styles.footer}>
-        <p>© 2024 AREA. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

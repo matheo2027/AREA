@@ -1,0 +1,71 @@
+.container {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f8fb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  background-color: #007acc;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Assurer que l'en-tête occupe toute la largeur */
+}
+
+.header .logo h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-end; /* Aligner les éléments de navigation à droite */
+  width: 100%; /* Prendre toute la largeur */
+}
+
+.nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #d6e9ff;
+  text-decoration: underline;
+}
+
+.main {
+  flex: 1;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.main h2 {
+  font-size: 28px;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nav {
+    margin-top: 10px;
+    justify-content: center; /* Centrer les éléments sur les petits écrans */
+  }
+
+  .main {
+    padding: 20px 10px;
+  }
+}

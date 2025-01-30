@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
+import Navbar from '../components/navbar/Navbar';
+import Footer from '../components/footer/Footer';
 
 export default function Dashboard() {
   const [areas, setAreas] = useState([]);
@@ -42,16 +44,7 @@ export default function Dashboard() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <h1>AREA</h1>
-        </div>
-        <nav className={styles.nav}>
-          <a href="/dashboard">Dashboard</a>
-          <a href="/services">Services</a>
-          <a href="/ar-editor">AR Editor</a>
-        </nav>
-      </header>
+      <Navbar />
 
       <main className={styles.main}>
         <h2>My Areas</h2>
@@ -64,7 +57,7 @@ export default function Dashboard() {
           <ul className={styles.areaList}>
             {areas.map((area) => (
               <li key={area.id} className={styles.areaItem}>
-                <strong>Action:</strong> {area.action} &nbsp; 
+                <strong>Action:</strong> {area.action} &nbsp;
                 <strong>Reaction:</strong> {area.reaction}
               </li>
             ))}
@@ -72,9 +65,7 @@ export default function Dashboard() {
         )}
       </main>
 
-      <footer className={styles.footer}>
-        <p>© 2024 AREA. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
