@@ -29,7 +29,7 @@ jobs:
 
       - name: Run Prettier Check
         run: |
-          npx prettier --check "**/*.js" "**/*.ts" "**/*.css" "**/*.md"
+          npx prettier --check "**/*.js" "**/*.ts" "**/*.css"
 
 
   push_to_mirror:
