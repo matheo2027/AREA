@@ -1,11 +1,10 @@
-'use client'; // Indique que ce composant est un Client Component
+'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './register.module.css';
 
 export default function Register() {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,7 +27,7 @@ export default function Register() {
       const response = await fetch('http://localhost:8080/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -37,7 +36,7 @@ export default function Register() {
         setMessage('Account created successfully!');
         // On récupère et on stocke l'userId renvoyé par l'API
         setUserId(data.userId);
-        localStorage.setItem('userId', data.userId); // Optionnel
+        localStorage.setItem('userId', data.userId);
         router.push('/dashboard');
       } else {
         setMessage(data.message || 'An error occurred.');
@@ -53,14 +52,6 @@ export default function Register() {
       <div className={styles.box}>
         <h1 className={styles.title}>Create an Account</h1>
         <form onSubmit={handleSubmit} className={styles.form}>
-        <input
-            type="usemrname"
-            placeholder="Username"
-            className={styles.input}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
           <input
             type="email"
             placeholder="Email"
@@ -89,7 +80,6 @@ export default function Register() {
         </form>
         {message && <p className={styles.message}>{message}</p>}
 
-        {/* Pour visualiser l'userId si besoin */}
         {userId && <p className={styles.message}>User ID: {userId}</p>}
       </div>
     </div>

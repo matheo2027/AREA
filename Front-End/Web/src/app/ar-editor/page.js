@@ -273,7 +273,7 @@ export default function AREditor() {
           </form>
         </div>
 
-        {message && <p style={{ marginTop: '1rem', color: 'green' }}>{message}</p>}
+        {message && <p style={{ marginTop: '1rem', color: 'red' }}>{message}</p>}
       </main>
 
       <Footer />
